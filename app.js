@@ -5,10 +5,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
+
 var wechat=require("./routes/wechat")
+var decrypt=require("./routes/decrpt")
 
 var app = express();
 
+//db setting and connection.
+require('./db');
 // view engine setup
 
 
@@ -21,6 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/wechat",wechat);
+// app.use("/decrypt",decrypt);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -37,7 +43,6 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
 });
 
 module.exports = app;
