@@ -9,6 +9,7 @@
     "axios": "^0.18.0",
     "bluebird": "^3.5.1",
     "body-parser": "~1.17.1",
+    "body-parser-xml": "^1.1.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
@@ -17,7 +18,8 @@
     "morgan": "~1.8.1",
     "serve-favicon": "~2.4.2",
     "sha1": "^1.1.1",
-    "wechat-api": "^1.35.1"
+    "wechat-api": "^1.35.1",
+    "xml": "^1.0.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.3"

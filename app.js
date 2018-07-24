@@ -4,10 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+require('body-parser-xml')(bodyParser)
 
-
-
-var wechat=require("./routes/wechat")
+//routes
+var login=require("./routes/login")
+var message=require("./routes/message")
 var decrypt=require("./routes/decrpt")
 
 var app = express();
@@ -21,11 +22,13 @@ require('./db');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(bodyParser.xml());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use("/wechat",wechat);
+app.use("/login",login);
+app.use("/message",message);
 // app.use("/decrypt",decrypt);
 
 // catch 404 and forward to error handler
