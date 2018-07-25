@@ -6,7 +6,7 @@ var receiverID="adsfasdfasdfadsfasdfasdf::"
 
 
 router.get('/',(req,res)=>{
-    console.log("req.body",req.body);
+    console.log("req.body",req.query);
     if (verify.verify_ux_signature(req.query.signature, req.query.timestamp, req.query.nonce)) {
         res.send(req.query.echostr);
     };
