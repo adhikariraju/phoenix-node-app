@@ -8,9 +8,12 @@ var receiverID="adsfasdfasdfadsfasdfasdf::"
 router.get('/',(req,res)=>{
     console.log("req.body",req.query);
     if (verify.verify_ux_signature(req.query.signature, req.query.timestamp, req.query.nonce)) {
-        res.send(req.query.echostr);
-    };
-    res.status(40001).send({ error: "Error while verifying the signature" });
+        console.log("verified url");
+      return res.send(req.query.echostr);
+    }
+    else{
+      res.send({ error: "Error while verifying the signature" });
+    }
 });
 
 router.post('/',(req,res)=>{
