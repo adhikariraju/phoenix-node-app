@@ -6,6 +6,7 @@ var receiverID="adsfasdfasdfadsfasdfasdf::"
 
 
 router.get('/',(req,res)=>{
+    console.log("req.body",req.body);
     if (verify.verify_ux_signature(req.query.signature, req.query.timestamp, req.query.nonce)) {
         res.send(req.query.echostr);
     };
@@ -18,13 +19,10 @@ router.post('/',(req,res)=>{
     console.log("wechat",WechatAPI)
     WechatAPI.sendText(receiverID,message,(err,result)=>{
         if(err){
-            console.log("error of message api",err)
            return res.send(err);
         }
-        console.log("result of message api",result)
         res.send(result);
     });
-
 })
 
 module.exports=router;
