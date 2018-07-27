@@ -10,7 +10,8 @@ const userSchema = new mongoose.Schema({
     "country": String,
     "headimgurl": String,
     "unionId": String,
-    "mobile":String
+    "mobile":String,
+    "verified":{type:Boolean,default:false}
 });
 
 module.exports = mongoose.model('User',userSchema);

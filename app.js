@@ -14,7 +14,7 @@ var decrypt=require("./routes/decrpt")
 var app = express();
 
 //db setting and connection.
-//require('./db');
+require('./db');
 // view engine setup
 
 
