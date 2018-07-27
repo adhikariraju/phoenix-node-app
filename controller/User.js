@@ -18,6 +18,8 @@ exports.updateSession=(id,session,cb)=>{
   })
 }
 
+
+
 exports.registerUser=(data,cb)=>{
     
     let user = new User({

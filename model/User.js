@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema({
     "headimgurl": String,
     "unionId": String,
     "mobile":String,
-    "verified":{type:Boolean,default:false}
+    "verified":{type:Boolean,default:false},
+    "assignedTo":{type:String,default:"kevin_ching_wong"}
 });
 
 module.exports = mongoose.model('User',userSchema);

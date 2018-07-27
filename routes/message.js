@@ -2,7 +2,7 @@ var express=require('express');
 var router=express.Router();
 var verify=require('../utils/verify')
 var WechatAPI = require('../utils/wechatapi');
-var receiverID="adsfasdfasdfadsfasdfasdf::"
+var UserCtrl=require("../controller/User");
 
 
 router.get('/',(req,res)=>{
@@ -17,15 +17,20 @@ router.get('/',(req,res)=>{
 });
 
 router.post('/',(req,res)=>{
-    console.log("req",req.body.xml.Content[0]);
-    let message=req.body.xml.Content[0];
+    console.log("req",req.body.content);
+    let message=req.body.comment;
     console.log("wechat",WechatAPI)
-    WechatAPI.sendText(receiverID,message,(err,result)=>{
-        if(err){
-           return res.send(err);
+    UserCtrl.findByOpenId(res.body.openid,(err,result)=>{
+        if(result!==null){
+            WechatAPI.sendText(result.assignedTo, message, (err, result) => {
+                if (err) {
+                    return res.send(err);
+                }
+                res.send(result);
+            });
         }
-        res.send(result);
-    });
+    })
+    
 })
 
 module.exports=router;
