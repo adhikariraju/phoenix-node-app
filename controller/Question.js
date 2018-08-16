@@ -1,0 +1,16 @@
+var Question=require("../model/Question");
+exports.getQuestionByType=(type,cb)=>{
+  Question.find({type:type},(err,result)=>{       
+       cb(err,result);
+  })
+}
+exports.postQuestion=(quest,cb)=>{
+      var data={
+        type:quest.type,
+        questions:quest.questions
+      }
+      var question=new Question(data);
+      question.save((err,result)=>{
+         cb(err,result)
+      });
+}

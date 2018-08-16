@@ -10,6 +10,7 @@ require('body-parser-xml')(bodyParser)
 var login=require("./routes/login")
 var message=require("./routes/message")
 var decrypt=require("./routes/decrpt")
+var question=require("./routes/question")
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use("/",express.static(path.join(__dirname, 'public')));
 
 app.use("/login",login);
 app.use("/message",message);
+app.use("/question",question);
 // app.use("/decrypt",decrypt);
 
 // catch 404 and forward to error handler

@@ -27,7 +27,7 @@ var api = new WechatAPI(config.APPID, config.APPSECRET);
 
 function checkExistence(){
     return (req,res,next)=>{
-       let code=req.body.code;
+       let code=req.query.code;
        let {userInfo}=req.body;
         // if(!code||!userInfo.nickname||!userInfo.gender||!userInfo.country||!userInfo.language||!userInfo.sex||!userInfo.province||!userInfo.city){
         //     res.status(500).send({errMsg:"Some field is missing"})
@@ -42,7 +42,6 @@ function checkExistence(){
 }
 
 router.use("/",checkExistence(),(req, res, next) => {
-    console.log("request in sso", req.body);
     const code = req.body.code;
     WeChatCtrl.getOidAndSession(code,function(err,data){
         if(data){
