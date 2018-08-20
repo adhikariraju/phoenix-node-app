@@ -11,11 +11,17 @@ var login=require("./routes/login")
 var message=require("./routes/message")
 var decrypt=require("./routes/decrpt")
 var question=require("./routes/question")
-
+var signup=require('./routes/signup')
+var answer=require('./routes/answer')
 var app = express();
 
 //db setting and connection.
-require('./db');
+var {mongoose}=require('./db');
+//------------ session module
+
+//var session=require("express-session")
+// var mongoStore=require("connect-mongo")(session);
+
 // view engine setup
 
 
@@ -26,11 +32,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.xml());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+//session logic
+
+// app.use(require('express-session')({
+//   secret: 'SUPER SECRET SECRET',
+//   resave: false,
+//   saveUninitialized: true,
+//   store: new mongoStore({mongooseConnection:mongoose.connection})
+// }));
 app.use("/",express.static(path.join(__dirname, 'public')));
 
 app.use("/login",login);
 app.use("/message",message);
 app.use("/question",question);
+app.use("/signup",signup);
+app.use("/answer",answer);
 // app.use("/decrypt",decrypt);
 
 // catch 404 and forward to error handler

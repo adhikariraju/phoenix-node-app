@@ -1,0 +1,4 @@
+1. login through route('/login') with query param "code"         -- [inside app.js]
+2. get the oid and session_key  from wechat passing query
+   param as a code                                               -- [routes/login ---> controller/Wechat.js]
+3. 

@@ -1,6 +1,7 @@
 var express=require('express')
 var router=express.Router();
 var questCtrl=require("../controller/Question");
+
 router.get("/",(req,res)=>{
     console.log(req.body)
     questCtrl.getQuestionByType(req.query.type,(err,result)=>{
@@ -14,6 +15,7 @@ router.get("/",(req,res)=>{
         }
     })
 })
+
 router.post("/",(req,res)=>{
    questCtrl.postQuestion(req.body,(err,result)=>{
        if(err){

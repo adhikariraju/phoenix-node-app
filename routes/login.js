@@ -42,12 +42,12 @@ function checkExistence(){
 }
 
 router.use("/",checkExistence(),(req, res, next) => {
-    const code = req.body.code;
+    const code = req.query.code;
     WeChatCtrl.getOidAndSession(code,function(err,data){
         if(data){
             UserCtrl.findByOpenId(data.openid, function (err, user) {
                 if (err) res.status(500).send("Error while logging in");
-
+                   
                 else if (user === null || user === "") {
                    UserCtrl.registerUser({
                      openid:data.openid,
@@ -57,13 +57,15 @@ router.use("/",checkExistence(),(req, res, next) => {
                        else if(result){
                            res.send({
                               verified:result.verified,
-                              userId:result._id
+                              sid:result._id
                            })
                        }
                   })
                 }
 
                 else if (user !== null || user === "") {
+                  console.log("update sessoin entered");
+                  console.log("session to be entered",data.session_key)  
                   UserCtrl.updateSession(user._id,data.session_key,function(err,user){
                       if(err) throw err;
                       res.locals.user = user;
@@ -80,10 +82,10 @@ router.use("/",checkExistence(),(req, res, next) => {
     })   
 })
 
-router.post("/", (req, res) => {
+router.get("/", (req, res) => {
     let user=res.locals.user
     console.log("user",user);
-    res.send({verified:user.verified,userId:user._id})
+    res.send({verified:user.verified,sid:user._id})
 })
 
 module.exports=router;
