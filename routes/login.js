@@ -28,7 +28,7 @@ var api = new WechatAPI(config.APPID, config.APPSECRET);
 function checkExistence(){
     return (req,res,next)=>{
        let code=req.query.code;
-       let {userInfo}=req.body;
+      
         // if(!code||!userInfo.nickname||!userInfo.gender||!userInfo.country||!userInfo.language||!userInfo.sex||!userInfo.province||!userInfo.city){
         //     res.status(500).send({errMsg:"Some field is missing"})
         // }
@@ -45,6 +45,7 @@ router.use("/",checkExistence(),(req, res, next) => {
     const code = req.query.code;
     WeChatCtrl.getOidAndSession(code,function(err,data){
         if(data){
+            console.log("data",data);
             UserCtrl.findByOpenId(data.openid, function (err, user) {
                 if (err) res.status(500).send("Error while logging in");
                    
@@ -62,10 +63,9 @@ router.use("/",checkExistence(),(req, res, next) => {
                        }
                   })
                 }
-
+                 
                 else if (user !== null || user === "") {
-                  console.log("update sessoin entered");
-                  console.log("session to be entered",data.session_key)  
+                 
                   UserCtrl.updateSession(user._id,data.session_key,function(err,user){
                       if(err) throw err;
                       res.locals.user = user;
@@ -77,7 +77,7 @@ router.use("/",checkExistence(),(req, res, next) => {
 
         else if(err){
           console.log(err);
-          res.status(500).send(err);
+          return res.status(500).send(err);
         }
     })   
 })

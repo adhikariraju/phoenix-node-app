@@ -4,10 +4,18 @@ exports.getQuestionByType=(type,cb)=>{
        cb(err,result);
   })
 }
+
+exports.getAllQuestion=(cb)=>{
+  Question.find({},(err,result)=>{
+       cb(err,result)    
+  })
+}
+
 exports.postQuestion=(quest,cb)=>{
       var data={
         type:quest.type,
-        questions:quest.questions
+        questions:quest.questions,
+        introQuestions:quest.introQuestions
       }
       var question=new Question(data);
       question.save((err,result)=>{

@@ -41,6 +41,7 @@ app.use(cookieParser());
 //   saveUninitialized: true,
 //   store: new mongoStore({mongooseConnection:mongoose.connection})
 // }));
+
 app.use("/",express.static(path.join(__dirname, 'public')));
 
 app.use("/login",login);
