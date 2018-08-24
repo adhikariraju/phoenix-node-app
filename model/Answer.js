@@ -1,15 +1,17 @@
 const { mongoose } = require('../db.js');
 
-const coreQuestion=new mongoose.Schema({
+const subAnswerSchema=new mongoose.Schema({
   questionId:{type:mongoose.SchemaTypes.ObjectId,required:true},
-  answerId:{type:mongoose.SchemaTypes.ObjectId,required:true}
+  label:{type:String,required:true},
+  answer:[{label:String,optionId:String}]
 })
 
 const answerSchema = new mongoose.Schema({
-    userId:{type:mongoose.SchemaTypes.ObjectId,required:true},
+    createdBy:{type:mongoose.SchemaTypes.ObjectId,required:true},
+    createdAt:{type:Date,default:Date.now()},
     type:{type:String,required:true},
     questionSetId:{type:mongoose.SchemaTypes.ObjectId,required:true},
-    questionnaire:[coreQuestion]
+    introQuestions:{type:[subAnswerSchema]}
 });
 
 module.exports = mongoose.model('Answer',answerSchema);

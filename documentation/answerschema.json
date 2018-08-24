@@ -1,0 +1,30 @@
+{
+   "type":"",
+   "completedBy":"",
+   "completedAt":"",
+   "questionId":"",
+   "introQuestions":[
+       {
+        "questionId":"", 
+        "label":"",
+         "answer":[{"value":"",
+                    "optionId":""}]      
+
+       }
+
+   ],
+   "questions":[
+       
+    {
+        "questionId":"", 
+        "label":"",
+         "answer":[{"value":"",
+                    "optionId":""}]      
+
+       }
+
+   ]
+  
+
+
+}
