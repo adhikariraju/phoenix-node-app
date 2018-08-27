@@ -7,7 +7,7 @@ const subAnswerSchema=new mongoose.Schema({
 })
 
 const answerSchema = new mongoose.Schema({
-    createdBy:{type:mongoose.SchemaTypes.ObjectId,required:true},
+    completedBy:{type:mongoose.SchemaTypes.ObjectId,required:true},
     createdAt:{type:Date,default:Date.now()},
     type:{type:String,required:true},
     questionSetId:{type:mongoose.SchemaTypes.ObjectId,required:true},
