@@ -11,7 +11,8 @@ const answerSchema = new mongoose.Schema({
     createdAt:{type:Date,default:Date.now()},
     type:{type:String,required:true},
     questionSetId:{type:mongoose.SchemaTypes.ObjectId,required:true},
-    introQuestions:{type:[subAnswerSchema]}
+    introQuestions:{type:[subAnswerSchema]},
+    questions:{type:[subAnswerSchema]}
 });
 
 module.exports = mongoose.model('Answer',answerSchema);

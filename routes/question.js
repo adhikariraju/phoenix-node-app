@@ -17,16 +17,27 @@ router.get("/:type",(req,res)=>{
 })
 
 router.get("/",(req,res)=>{
-    console.log(req.body);
-    questCtrl.getAllQuestion((err,result)=>{
+    console.log(req.query);
+    questCtrl.getAllQuestion(req.query,(err,result)=>{
         if(err){
             console.log(err);
             res.status(500).send(err);
-          }
-          else if(result) {
+        }
+        else if(result) {
              console.log(result) 
              res.status(200).send({questions:result}); 
-          } 
+        } 
+    })
+})
+
+router.post("/addViewer",(req,res)=>{
+    questCtrl.markAsViewed(req.body,(err,result)=>{
+      if(err){
+          res.status(500).send({success:false, error:err})
+      }
+      else if(result){
+          res.status(200).send({success:true})
+      }
     })
 })
 

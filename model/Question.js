@@ -48,7 +48,10 @@ const corequestSchema=new mongoose.Schema({
 const questionSchema = new mongoose.Schema({
     type:{type:String,required:true},
     introQuestions:{type:[introquestSchema]},
-    questions:{type:[corequestSchema],required:true}    
+    questions:{type:[corequestSchema],required:true},
+    viewedBy:[{userId:String}],
+    createdAt:{type:String,default:Date.now()},
+    dueDate:{type:Date,required:true}        
 });
 
 module.exports = mongoose.model('Question',questionSchema);
