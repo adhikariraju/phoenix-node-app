@@ -28,7 +28,7 @@ exports.getAllQuestion=(data,cb)=>{
         createdAt:1,
         dueDate:1,
         viewed:{
-          $cond:[{$in:[{userId:data.userId},"$viewedBy"]},true,false]
+          $cond:[{$in:[data.userId,"$viewedBy.userId"]},true,false]
          
         }
       }
@@ -40,9 +40,12 @@ exports.getAllQuestion=(data,cb)=>{
 }
 
 exports.markAsViewed=(data,cb)=>{
+  console.log(data)
   Question.findByIdAndUpdate({_id:data.questionSetId},
                              {$push:{viewedBy:{userId:data.userId}}},
-                             cb(err,res)); 
+                             (err,result)=>{
+                               cb(err,result)
+                              }); 
 }
 
 exports.postQuestion=(quest,cb)=>{
