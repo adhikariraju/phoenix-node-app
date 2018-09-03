@@ -28,7 +28,7 @@ exports.getAllQuestion=(data,cb)=>{
         createdAt:1,
         dueDate:1,
         viewed:{
-          $cond:[{$in:[{userId:data.userId},"$viewedBy"]},"true","false"]
+          $cond:[{$in:[{userId:data.userId},"$viewedBy"]},true,false]
          
         }
       }
