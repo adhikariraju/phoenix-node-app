@@ -52,7 +52,8 @@ exports.postQuestion=(quest,cb)=>{
       var data={
         type:quest.type,
         questions:quest.questions,
-        introQuestions:quest.introQuestions
+        introQuestions:quest.introQuestions,
+        dueDate:new Date(quest.dueDate)
       }
       var question=new Question(data);
       question.save((err,result)=>{
