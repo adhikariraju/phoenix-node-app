@@ -12,7 +12,7 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT);
+var port = normalizePort(process.env.PORT || '80');
 var host=process.env.host;
 app.set('port', port);
 
@@ -27,7 +27,7 @@ var server = http.createServer(app);
  */
 
 server.listen(host,port,()=>{
-  console.log("Server running at "+host +" : "+port);
+  console.log("Server running at "+host +" : "+port)
 });
 
 server.on('error', onError);
