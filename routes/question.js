@@ -42,6 +42,7 @@ router.post("/addViewer",(req,res)=>{
 })
 
 router.post("/",(req,res)=>{
+    
    questCtrl.postQuestion(req.body,(err,result)=>{
        if(err){
            res.status(500).send(err)
