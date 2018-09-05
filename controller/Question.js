@@ -55,7 +55,6 @@ exports.postQuestion=(quest,cb)=>{
         introQuestions:quest.introQuestions,
         dueDate:Date.parse(quest.dueDate)
       }
-      console.log("date",date);
       var question=new Question(data);
       question.save((err,result)=>{
          cb(err,result)
