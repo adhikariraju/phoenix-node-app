@@ -13,11 +13,12 @@ var decrypt=require("./routes/decrpt")
 var question=require("./routes/question")
 var signup=require('./routes/signup')
 var answer=require('./routes/answer')
+var sugPress=require('./routes/sugarPressure')
 var app = express();
 
 //db setting and connection.
 var {mongoose}=require('./db');
-//------------ session module
+//-------- session module
 
 //var session=require("express-session")
 // var mongoStore=require("connect-mongo")(session);
@@ -49,6 +50,7 @@ app.use("/message",message);
 app.use("/question",question);
 app.use("/signup",signup);
 app.use("/answer",answer);
+app.use("/sugpress",sugPress)
 // app.use("/decrypt",decrypt);
 
 // catch 404 and forward to error handler
