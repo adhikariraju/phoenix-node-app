@@ -83,7 +83,15 @@ router.use("/",checkExistence(),(req, res, next) => {
     })   
 })
 
-router.get("/v2",(req,res)=>{
+router.get("/", (req, res) => {
+    let user = res.locals.user
+    console.log("user", user);
+    res.send({ verified: user.verified, sid: user.sid })
+});
+
+
+router.use("/v2",(req,res)=>{
+    console.log("inside v2");
     const code = req.query.code;
     WeChatCtrl.getOidAndSession(code, function (err, data) {
         if (data) {
@@ -119,10 +127,11 @@ router.get("/v2",(req,res)=>{
     })     
 })
 
-router.get("/", (req, res) => {
-    let user=res.locals.user
-    console.log("user",user);
-    res.send({verified:user.verified,token:user.token})
+router.get("/v2", (req, res) => {
+    let user = res.locals.user
+    console.log("user", user);
+    res.send({ verified: user.verified, token: user.token })
 });
+
 
 module.exports=router;

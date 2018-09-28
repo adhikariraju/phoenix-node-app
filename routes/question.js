@@ -3,7 +3,7 @@ var router=express.Router();
 var questCtrl=require("../controller/Question");
 var verify=require("../utils/verify")
 
-router.use(verify.verifyUser());
+router.use(verify.verifyUser);
 
 router.get("/:type",(req,res)=>{
     console.log(req.body)
