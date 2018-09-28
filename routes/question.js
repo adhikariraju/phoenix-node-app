@@ -1,6 +1,9 @@
 var express=require('express')
 var router=express.Router();
 var questCtrl=require("../controller/Question");
+var verify=require("../utils/verify")
+
+router.use(verify.verifyUser());
 
 router.get("/:type",(req,res)=>{
     console.log(req.body)
@@ -30,7 +33,7 @@ router.get("/",(req,res)=>{
     })
 })
 
-router.post("/addViewer",(req,res)=>{
+router.post("/addViewer/questionId/:questionId",(req,res)=>{
     questCtrl.markAsViewed(req.body,(err,result)=>{
       if(err){
           res.status(500).send({success:false, error:err})

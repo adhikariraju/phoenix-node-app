@@ -35,7 +35,7 @@ router.get('/:userId/getRecent',(req,res)=>{
         if(err){
             return res.status(400).send({err:"Error while getting"})
         }
-        res.status(200).send({result:result,success:true})
+        res.status(200).send({result:result,success:true});
     })
 })
 

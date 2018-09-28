@@ -1,4 +1,4 @@
-var config=require('../config/config')
+var config = require('../config/config')
 var axios = require("axios");
 exports.getOidAndSession=(code,cb)=>{
     console.log("code on wechat ctrl",code);
@@ -6,10 +6,8 @@ exports.getOidAndSession=(code,cb)=>{
     .then(apiRes => {
         if(apiRes){
             cb(null,apiRes.data)
-        }
-        
+        }        
     })
-
     .catch((e) => {
          cb(e,null)
     })

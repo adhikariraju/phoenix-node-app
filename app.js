@@ -14,6 +14,7 @@ var question=require("./routes/question")
 var signup=require('./routes/signup')
 var answer=require('./routes/answer')
 var sugPress=require('./routes/sugarPressure')
+var doctor=require("./routes/doctor")
 var app = express();
 
 //db setting and connection.
@@ -51,6 +52,7 @@ app.use("/question",question);
 app.use("/signup",signup);
 app.use("/answer",answer);
 app.use("/sugpress",sugPress)
+app.use("/doctor",doctor);
 // app.use("/decrypt",decrypt);
 
 // catch 404 and forward to error handler

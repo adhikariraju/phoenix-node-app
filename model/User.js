@@ -1,8 +1,8 @@
 const { mongoose } = require('../db.js');
 
 const userSchema = new mongoose.Schema({
-    openid:{type:String,required:true},
-    session_key:String,
+    "openid":{type:String,required:true},
+    "session_key":String,
     "nickname":String,
     "sex": Number,
     "city": String,
@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
     "unionId": String,
     "mobile":String,
     "verified":{type:Boolean,default:false},
-    "assignedTo":{type:String,default:"kevin_ching_wong"}
+    "assignedTo":{type:String},
+    "subscribe_time":{type:Date,default:Date.now()}
 });
 
 module.exports = mongoose.model('User',userSchema);

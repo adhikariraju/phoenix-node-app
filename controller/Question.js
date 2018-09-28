@@ -6,6 +6,7 @@ exports.getQuestionByType=(type,cb)=>{
 }
 
 exports.getAllQuestion=(data,cb)=>{
+  
   // Question.find({},(err,result)=>{
   //     var questions=[];
   //     result.map((question,index)=>{

@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var userCtrl=require("../controller/User")
 var decrypt=require("../utils/decrypt")
+
+
 function getUserInfo(){
     return (req,res,next)=>{
         userCtrl.getSession(req.body.sid,(err,result)=>{
@@ -24,6 +26,7 @@ function userSignup(){
                  throw err;              
             }
             console.log("signup",result)
+            res.locals.result=result;
             next();
         })         
     }
@@ -31,6 +34,8 @@ function userSignup(){
 
 router.post("/",getUserInfo(),userSignup(),(req,res)=>{
     res.status(200).send({
+        success:true,
+        result:res.locals.result.verified,
         message:"user successfully registered"
     })
 })

@@ -29,8 +29,7 @@ router.post('/',(req,res)=>{
                 res.send(result);
             });
         }
-    })
-    
+    })    
 })
 
 module.exports=router;
