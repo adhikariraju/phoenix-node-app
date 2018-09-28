@@ -42,7 +42,7 @@ function checkExistence(){
     }
 }
 
-router.use("/",checkExistence(),(req, res, next) => {
+router.get("/",checkExistence(),(req, res, next) => {
     const code = req.query.code;
     WeChatCtrl.getOidAndSession(code,function(err,data){
         if(data){
