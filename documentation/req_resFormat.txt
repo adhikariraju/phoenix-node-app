@@ -1,0 +1,7 @@
+// for general success respose
+
+{
+  "success":true,   // boolean value determine whether the   
+  "result":result   //it will contain the data for response
+}
+    

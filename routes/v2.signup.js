@@ -32,8 +32,8 @@ function userSignup() {
             }
             console.log("signup", result);
             var token=verify.getToken(result._id);
-            result._id="";
-            res.locals.result = result;
+            delete result._id;
+            res.locals.result = {token,...result};
             next();
         })
     }

@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-require('body-parser-xml')(bodyParser)
+require('body-parser-xml')(bodyParser);
 
 //routes
 var login=require("./routes/login")
@@ -12,6 +12,7 @@ var message=require("./routes/message")
 var decrypt=require("./routes/decrpt")
 var question=require("./routes/question")
 var signup=require('./routes/signup')
+var v2signup=require('./routes/v2.signup')
 var answer=require('./routes/answer')
 var sugPress=require('./routes/sugarPressure')
 var doctor=require("./routes/doctor")
@@ -53,6 +54,7 @@ app.use("/signup",signup);
 app.use("/answer",answer);
 app.use("/sugpress",sugPress)
 app.use("/doctor",doctor);
+app.use("/signup/v2",v2signup);
 // app.use("/decrypt",decrypt);
 
 // catch 404 and forward to error handler
