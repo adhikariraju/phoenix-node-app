@@ -11,9 +11,10 @@ function getUserInfo() {
         let iv = req.body.iv || null
         let session_key=req.decoded.session_key;
         
-        // let userInfo = decrypt(session_key, encryptedData, iv);
+        let userInfo = decrypt(session_key, encryptedData, iv);
          
-        let userInfo={nickname:"raju"};
+        // let userInfo={nickname:"raju"};
+
         res.locals.userInfo={
                              session_key,
                              openid:req.decoded.openid,
