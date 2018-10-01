@@ -65,7 +65,7 @@ router.get("/",checkExistence(),(req, res, next) => {
                   })
                 }
                  
-                else if (user !== null || user === "") {
+                else if (user !== null || user !== "") {
                  
                   UserCtrl.updateSession(user._id,data.session_key,function(err,user){
                       if(err) throw err;
@@ -86,11 +86,11 @@ router.get("/",checkExistence(),(req, res, next) => {
 router.get("/", (req, res) => {
     let user = res.locals.user
     console.log("user", user);
-    res.send({ verified: user.verified, sid: user.sid })
+    res.send({ verified: user.verified, sid: user._id })
 });
 
 
-router.use("/v2",(req,res)=>{
+router.use("/v2",(req,res,next)=>{
     console.log("inside v2");
     const code = req.query.code;
     WeChatCtrl.getOidAndSession(code, function (err, data) {
@@ -107,15 +107,16 @@ router.use("/v2",(req,res)=>{
                 
                 // when there is a user with openId in DB.
                 else if (user !== null || user === "") {
-
-                    UserCtrl.updateSession(user._id, data.session_key, function (err, user) {
+                    console.log("inside user",user); 
+                    UserCtrl.updateSession(user._id,data.session_key, function (err, user) {
+                        console.log("id",user._id)
                         if (err){
                             throw err;
                         };
-                        var token=verify.getToken(user._id);
-                        res.locals.user = {verified:false,token:token};
-                        next();
-                    })
+                        var token=verify.getToken({userId:user._id});
+                        res.locals.user = {verified:user.verified,token:token};   
+                        next();                     
+                    })                    
                 }
             })
         }
@@ -129,7 +130,7 @@ router.use("/v2",(req,res)=>{
 
 router.get("/v2", (req, res) => {
     let user = res.locals.user
-    console.log("user", user);
+    console.log("user in last res", user);
     res.send({ verified: user.verified, token: user.token })
 });
 

@@ -8,7 +8,7 @@ function validateFields() {
      var sugar=req.body.sugar||"";   
      var pressure=req.body.pressure||""; 
        if(userId==""||sugar==""||pressure==""){
-          return res.status(400).send({error:"All fields are required"})
+          return res.status(400).send({message:"All fields are required",success:false})
        }
        next();
    } 
@@ -54,9 +54,10 @@ router.get("/:userId/:fromDate-:toDate",(req,res)=>{
 router.post('/',validateFields(),(req,res)=>{
     sugpressCtrl.save(req.body,(err,result)=>{
         if(err){
-            return res.status(400).send({err:"Error while posting"})
+            console.log("error while posting sugpress",err);
+            return res.status(400).send({message:"Error while posting",success:false})
         }
-        res.status(202).send({msg:"Post Success"});
+        res.status(202).send({message:"Post Success",success:true});
     })
 })
 module.exports=router;

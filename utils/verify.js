@@ -59,16 +59,20 @@ exports.getUnverifiedUserToken = function (data) {
 }
 
 // it is used to verify the signup process for users who hasnot verified themselves.
-exports.verifyNewUser = function (req, res, next) {    
+exports.verifyNewUser = function (req, res, next) { 
+        console.log("inside verify new user")   
         var token = req.body.token || req.query.token || req.headers['x-access-token'];
         if (token) {
             jwt.verify(token,config.unv_jwt_secret, function (err, decoded) {
                 if (err) {
+                    console.log("error in new user register token",err)
+                    console.log("inside verify new user error")
                     var err = new Error("You are not authenticated");
                     err.status = 401;
                     next(err);
                 }
                 else {
+                    console.log("inside decoded verify")
                     req.decoded = decoded;
                     next();
                 }

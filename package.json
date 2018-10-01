@@ -6,6 +6,7 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "@godaddy/terminus": "^3.0.1",
     "axios": "^0.18.0",
     "bluebird": "^3.5.1",
     "body-parser": "~1.17.1",

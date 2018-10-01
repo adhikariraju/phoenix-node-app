@@ -29,7 +29,7 @@ WXBizDataCrypt.prototype.decryptData = function (encryptedData, iv) {
     throw new Error('Illegal Buffer')
   }
 
-  return decoded
+  return decoded;
 }
 
 module.exports = WXBizDataCrypt

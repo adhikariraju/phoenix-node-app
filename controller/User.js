@@ -48,7 +48,7 @@ exports.setUserInfo=(id,userInfo,cb)=>{
 }
 
 exports.signupUser=(userInfo,cb)=>{
-
+    console.log("userInfo in signupUser",userInfo)
     let nickname = userInfo.nickName || ""
     let sex = userInfo.gender || ""
     let city = userInfo.city || ""
@@ -71,6 +71,7 @@ exports.signupUser=(userInfo,cb)=>{
         mobile: mobile,
         verified: true
     });
+    console.log("inside user save");
     
     user.save((err, result) => {
         if (err) cb(err, null);

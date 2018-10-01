@@ -7,16 +7,40 @@
 var app = require('../app');
 var debug = require('debug')('express:server');
 var http = require('http');
+const { createTerminus } = require('@godaddy/terminus');
+
 
 /**
  * Get port from environment and store in Express.
  */
 
 
-
 var port = normalizePort(process.env.PORT || '3000');
 var host="0.0.0.0";
 app.set('port', port);
+
+
+function onSignal() {
+  console.log('server is starting cleanup');
+  return Promise.all([
+    // your clean logic, like closing database connections
+  ]);
+}
+
+function onShutdown() {
+  console.log('cleanup finished, server is shutting down');
+}
+
+function healthCheck() {
+  return Promise.resolve(
+    // optionally include a resolve value to be included as
+    // info in the healthcheck response
+  )
+}
+
+
+
+
 
 /**
  * Create HTTP server.
@@ -27,6 +51,33 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
+
+
+/*
+options of health check api
+*/
+const options = {
+  // healtcheck options
+  healthChecks: {
+    '/healthcheck': healthCheck    // a promise returning function indicating service health
+  },
+
+  // cleanup options
+  timeout: 1000,                   // [optional = 1000] number of milliseconds before forcefull exiting
+  // signal,                          // [optional = 'SIGTERM'] what signal to listen for relative to shutdown
+  // signals,                          // [optional = []] array of signals to listen for relative to shutdown
+  // beforeShutdown,                  // [optional] called before the HTTP server starts its shutdown
+  onSignal,                        // [optional] cleanup function, returning a promise (used to be onSigterm)
+  onShutdown,                      // [optional] called right before exiting
+
+  // both
+  // logger                           // [optional] logger function to be called with errors
+};
+
+createTerminus(server,options);
+
+
+
 
 server.listen(port,()=>{
   console.log("Server running at "+host +" : "+port)

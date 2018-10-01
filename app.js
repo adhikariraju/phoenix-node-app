@@ -54,7 +54,7 @@ app.use("/signup",signup);
 app.use("/answer",answer);
 app.use("/sugpress",sugPress)
 app.use("/doctor",doctor);
-app.use("/signup/v2",v2signup);
+app.use("/v2/signup",v2signup);
 // app.use("/decrypt",decrypt);
 
 // catch 404 and forward to error handler
@@ -66,12 +66,12 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+  console.log("error",err);
   // render the error page
-  res.status(err.status || 500);
+  res.status(err.status || 500).send({
+    success:false,
+    message:err.message
+  });
 });
 
 module.exports = app;
