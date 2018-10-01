@@ -16,6 +16,7 @@ var v2signup=require('./routes/v2.signup')
 var answer=require('./routes/answer')
 var sugPress=require('./routes/sugarPressure')
 var doctor=require("./routes/doctor")
+
 var app = express();
 
 //db setting and connection.
@@ -67,7 +68,7 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   console.log("error",err);
-  // render the error page
+  // render the error page.
   res.status(err.status || 500).send({
     success:false,
     message:err.message

@@ -65,14 +65,11 @@ exports.verifyNewUser = function (req, res, next) {
         if (token) {
             jwt.verify(token,config.unv_jwt_secret, function (err, decoded) {
                 if (err) {
-                    console.log("error in new user register token",err)
-                    console.log("inside verify new user error")
                     var err = new Error("You are not authenticated");
                     err.status = 401;
                     next(err);
                 }
                 else {
-                    console.log("inside decoded verify")
                     req.decoded = decoded;
                     next();
                 }

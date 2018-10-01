@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var userCtrl = require("../controller/User")
-var decrypt = require("../utils/decrypt")
-var verify=require("../utils/verify")
+var userCtrl = require("../controller/User");
+var decrypt = require("../utils/decrypt");
+var verify=require("../utils/verify");
 
 function getUserInfo() {
     return (req, res, next) => {        
@@ -13,7 +13,7 @@ function getUserInfo() {
         
         // let userInfo = decrypt(session_key, encryptedData, iv);
          
-        let userInfo={nickname:"raju"}
+        let userInfo={nickname:"raju"};
         res.locals.userInfo={
                              session_key,
                              openid:req.decoded.openid,
