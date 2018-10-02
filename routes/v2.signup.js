@@ -3,6 +3,9 @@ var router = express.Router();
 var userCtrl = require("../controller/User");
 var decrypt = require("../utils/decrypt");
 var verify=require("../utils/verify");
+var schema = require("../express-validator/schema")
+var validation= require("../express-validator/validation")
+const { validationResult } = require('express-validator/check');
 
 function getUserInfo() {
     return (req, res, next) => {        
@@ -28,7 +31,7 @@ function getUserInfo() {
 function checkExistence(){
     return (req,res,next)=>{
         userCtrl.findByOpenId(
-            res.locals.userInfo.openid,
+            req.decoded.openid,
             (err,user)=> {
                 if (err) res.status(500).send("Error while logging in");
                 else if (user === null || user === "") {
@@ -73,15 +76,17 @@ function userSignup() {
     }
 }
 
+var middlewares = [schema.signup, validation, verify.verifyNewUser, checkExistence(),getUserInfo(), userSignup()];
 
-router.post("/",verify.verifyNewUser,getUserInfo(),checkExistence(),userSignup(),
-            (req, res) => {
-              console.log("res.local at signup",res.locals.result)
-              res.status(200).send({
-                    success: true,
-                    message: "user successfully registered",
-                    ...res.locals.result
-                })
+
+router.post("/",middlewares,
+        (req, res) => {
+            console.log("res.local at signup",res.locals.result)
+            res.status(200).send({
+                success: true,
+                message: "user successfully registered",
+                ...res.locals.result
+        })
 });
 
 module.exports = router;

@@ -17,6 +17,9 @@ var answer=require('./routes/answer')
 var sugPress=require('./routes/sugarPressure')
 var doctor=require("./routes/doctor")
 
+var expressValidator = require('express-validator');
+
+
 var app = express();
 
 //db setting and connection.
@@ -47,6 +50,8 @@ app.use(cookieParser());
 // }));
 
 app.use("/",express.static(path.join(__dirname, 'public')));
+app.use(expressValidator());
+
 
 app.use("/login",login);
 app.use("/message",message);
@@ -71,8 +76,8 @@ app.use(function(err, req, res, next) {
   // render the error page.
   res.status(err.status || 500).send({
     success:false,
-    message:err.message
+    message:err.message,
+    errors:err.errors
   });
 });
-
 module.exports = app;

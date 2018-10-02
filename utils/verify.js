@@ -45,7 +45,8 @@ exports.verifyUser=function(req,res,next){
                next();
            }
        })
-   }else{
+   }
+   else{
        var err=new Error("No token provided");
        err.status=403;
        return next(err);

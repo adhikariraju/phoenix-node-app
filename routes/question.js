@@ -2,6 +2,8 @@ var express=require('express')
 var router=express.Router();
 var questCtrl=require("../controller/Question");
 var verify=require("../utils/verify")
+var schema = require("../express-validator/schema")
+var validation = require("../express-validator/validation")  //express-validator common middleware
 
 router.use(verify.verifyUser);
 
@@ -31,10 +33,17 @@ router.get("/",(req,res)=>{
              res.status(200).send({questions:result}); 
         } 
     })
-})
+});
 
-router.post("/addViewer/questionId/:questionId",(req,res)=>{
-    questCtrl.markAsViewed(req.body,(err,result)=>{
+router.put("/addViewer/questionId/:questionId",(req,res)=>{
+    let postData={
+        userId:req.decoded.userId,
+        ...req.body
+    };
+
+    delete postData.token;
+
+    questCtrl.markAsViewed(postData,(err,result)=>{
       if(err){
           res.status(500).send({success:false, error:err})
       }
@@ -44,9 +53,9 @@ router.post("/addViewer/questionId/:questionId",(req,res)=>{
     })
 })
 
+
 router.post("/",(req,res)=>{
-    
-   questCtrl.postQuestion(req.body,(err,result)=>{
+   questCtrl.postQuestion(req.body,schema.postQuestion,validation,(err,result)=>{
        if(err){
            res.status(500).send(err)
        }
@@ -55,4 +64,5 @@ router.post("/",(req,res)=>{
        }
    })
 })
+
 module.exports=router;

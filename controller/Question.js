@@ -55,7 +55,8 @@ exports.postQuestion=(quest,cb)=>{
         questions:quest.questions,
         introQuestions:quest.introQuestions,
         dueDate:Date.parse(quest.dueDate)
-      }
+      };
+      
       var question=new Question(data);
       question.save((err,result)=>{
          cb(err,result)
