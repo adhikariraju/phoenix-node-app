@@ -43,7 +43,7 @@ router.post('/', validateFields(), (req, res) => {
 
 //getting recent date (weekly) result.
 //for medical tech
-router.get('/getRecent',(req,res)=>{
+router.get('/getRecent',(req,res)=>{    
     console.log("inside getrecent by id")
     let userId = req.params.userId||req.query.userId||req.decoded.userId;
     var currentDate=new Date(Date.now());
@@ -58,7 +58,7 @@ router.get('/getRecent',(req,res)=>{
     })
 });
 
-router.get("/:userId/:fromDate-:toDate",(req,res)=>{
+router.get("/:fromDate-:toDate",(req,res)=>{
     var userId = req.params.userId || req.query.userId || req.decoded.userId;
     var fromDate=req.params.fromDate.valueOf();
     var toDate=req.params.toDate.valueOf();
