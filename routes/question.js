@@ -7,20 +7,6 @@ var validation = require("../express-validator/validation")  //express-validator
 
 router.use(verify.verifyUser);
 
-router.get("/:type",(req,res)=>{
-    console.log(req.body)
-    questCtrl.getQuestionByType(req.params.type,(err,result)=>{
-        if(err){
-          console.log(err);
-          res.status(500).send(err);
-        }
-        else if(result) {
-           console.log(result) 
-           res.status(200).send(result); 
-        }
-    })
-})
-
 router.get("/",(req,res)=>{
     console.log(req.query);
     questCtrl.getAllQuestion(req.query,(err,result)=>{
@@ -35,9 +21,87 @@ router.get("/",(req,res)=>{
     })
 });
 
+router.get("/:type",(req,res)=>{
+    console.log(req.body)
+    questCtrl.getQuestionByType(req.params.type,(err,result)=>{
+        if(err){
+          console.log(err);
+          res.status(500).send(err);
+        }
+        else if(result) {
+           console.log(result) 
+           res.status(200).send(result); 
+        }
+    })
+});
+
+router.get("/:id",(req,res)=>{
+    questCtrl.getQuestionById(req.params.id,(err,result)=>{
+        if(err){
+            res.status(500).send({
+                success:false,
+                error:err,
+                message:"Error while getting question by Id"
+            })
+        }
+        else if(result){
+            res.status(200).send({
+                success:true,
+                message:"get question success",
+                result:result
+            })
+        }
+    })
+});
+
+router.put("/parent/:parentId/intro/:introId",
+            schema.question.putIntroQuestion,validation,
+            (req,res)=>{
+               let introId=req.params.introId;
+               let parentId=req.params.parentId; 
+               let question=req.body.question;
+               questCtrl.updateIntroQuest(introId,parentId,question,(err,result)=>{
+                 if(err){
+                    return res.status(500).send({success:false,
+                                error:err,
+                                message:"Error while updating"
+                            })
+                 }
+                 res.status(201).send({
+                     success:true,
+                     message:"update success",
+                     result:result
+                  })    
+               })   
+});
+
+router.put("/parent/:parentId/core/:coreId",(req,res)=>{
+             schema.question.putCoreQuestion,validation,
+             (req,res)=>{
+                 let {parentId,coreId}=req.params;
+                 let {question}=req.body
+                 questCtrl.updateCoreQuest(introId,parentId,question,(err,result)=>{
+                    if(err){
+                        return res.status(500).send({success:false,
+                                    error:err,
+                                    message:"Error while updating"
+                                })
+                     }
+                     res.status(201).send({
+                         success:true,
+                         message:"update success",
+                         result:result
+                      })    
+                   
+                 })
+             }
+});
+
+
 router.put("/addViewer/questionId/:questionId",(req,res)=>{
+    var {userId}=req.decoded||req.body||req.query
     let postData={
-        userId:req.decoded.userId,
+        userId,
         ...req.body
     };
 
@@ -55,7 +119,7 @@ router.put("/addViewer/questionId/:questionId",(req,res)=>{
 
 
 router.post("/",(req,res)=>{
-   questCtrl.postQuestion(req.body,schema.postQuestion,validation,(err,result)=>{
+   questCtrl.postQuestion(req.params.userId || req.query.userId ||req.body,schema.postQuestion,validation,(err,result)=>{
        if(err){
            res.status(500).send(err)
        }

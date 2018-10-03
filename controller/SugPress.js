@@ -1,7 +1,7 @@
 var SugPress=require('../model/SugPress');
 
-exports.getAllByUserId=(data,callback)=>{
-  SugPress.find({userId:data.userId},function(err,result){
+exports.getAllByUserId=(userId,callback)=>{
+  SugPress.find({userId:userId},function(err,result){
       if(err){
           callback(err,null);
       }
@@ -24,7 +24,8 @@ exports.save=(data,callback)=>{
 }
 
 exports.getAllWithinDate=(data,callback)=>{
+    console.log("data within date",data);
     SugPress.find({userId:data.userId,createdAt:{$lte:data.toDate,$gte:data.fromDate}},(err,result)=>{
-        callback(err,result)
+        callback(err,result);
     })
 }

@@ -18,7 +18,9 @@ function validateFields() {
 router.use(verify.verifyUser);
 
 router.get('/',(req,res)=>{
-   sugpressCtrl.getAllByUserId(req.decoded.userId,(err,result)=>{
+   let {userId}=req.decoded||req.query;
+   console.log("userid get sugpres",userId)
+   sugpressCtrl.getAllByUserId(userId,(err,result)=>{
        if(err){
           return res.status(400).send({err:"error while getting"});
        } 
@@ -28,8 +30,9 @@ router.get('/',(req,res)=>{
 
 
 router.post('/', validateFields(), (req, res) => {
+    let {userId}=req.decoded||req.body;
     var data = {
-        userId: req.decoded.userId,
+        userId,
         ...req.body
     };
     sugpressCtrl.save(data, (err, result) => {
@@ -49,7 +52,8 @@ router.get('/getRecent',(req,res)=>{
     var currentDate=new Date(Date.now());
     currentDate.setDate(currentDate.getDate()-7);
     var fromDate=currentDate.valueOf();
-    var parameter = {userId: userId, fromDate: fromDate, toDate: Date.now()}
+    var parameter = {userId: userId, fromDate: fromDate, toDate: Date.now()};
+
     sugpressCtrl.getAllWithinDate(parameter,(err,result)=>{
         if(err){
             return res.status(400).send({err:"Error while getting"})
@@ -58,10 +62,16 @@ router.get('/getRecent',(req,res)=>{
     })
 });
 
-router.get("/:fromDate-:toDate",(req,res)=>{
-    var userId = req.params.userId || req.query.userId || req.decoded.userId;
+router.get("/:fromDate/:toDate",(req,res)=>{
+    let {userId} = req.decoded||req.params|| req.query;
     var fromDate=req.params.fromDate.valueOf();
+
     var toDate=req.params.toDate.valueOf();
+
+    if(fromDate===toDate){
+        toDate=Date.now().valueOf();
+    }
+
     sugpressCtrl.getAllWithinDate({userId,fromDate,toDate},(err,result)=>{
         if(err){
             return res.status(400).send({err:"error while getting"})
