@@ -32,7 +32,7 @@ exports.getAllQuestion=(data,cb)=>{
     {
       $project:{
         introQuestions:1,
-        questions:1,
+        coreQuestions:1,
         type:1,
         createdAt:1,
         dueDate:1,
@@ -53,16 +53,16 @@ exports.getAllQuestion=(data,cb)=>{
 exports.postQuestion=(quest,cb)=>{
       var data={
         type:quest.type,
-        questions:quest.questions,
+        coreQuestions:quest.coreQuestions,
         introQuestions:quest.introQuestions,
         dueDate:Date.parse(quest.dueDate)
       };
       
       var question=new Question(data);
       question.save((err,result)=>{
-         cb(err,result)
+         cb(err,result);
       });
-}
+};
 
 //update options
 
@@ -76,9 +76,12 @@ exports.markAsViewed=(data,cb)=>{
 }
 
 exports.updateCoreQuest=(parentId,coreId,question,cb)=>{
-  Question.findByIdAndUpdate(
+  console.log("coreid",coreId);
+  console.log("parentid",parentId);
+  Question.findOneAndUpdate(
     {"_id":parentId,"coreQuestions._id":coreId},
     {$set:{"coreQuestions.$":question}},
+    {new:true},
     (err,result)=>{
       cb(err,result)
     }   
@@ -86,11 +89,49 @@ exports.updateCoreQuest=(parentId,coreId,question,cb)=>{
 }
 
 exports.updateIntroQuest=(parentId,introId,question,cb)=>{
-  Question.findByIdAndUpdate(
+  Question.findOneAndUpdate(
     {"_id":parentId,"introQuestions._id":introId},
     {$set:{"introQuestions.$":question}},
+    {new:true},
     (err,result)=>{
       cb(err,result)
     }   
   )
+};
+
+
+//Delete
+
+
+exports.deleteById=(id,cb)=>{
+  Question.findOneAndDelete({_id:id},(err,result)=>{
+    cb(err,result);
+  })
+}
+
+exports.deleteCore=(parentId,coreId,cb)=>{
+  Question.findOne({_id:parentId},(err,result)=>{
+    if(result){
+      result.coreQuestions.id(coreId).remove();
+      result.save((err,result)=>{
+        return cb(err,result);
+      });      
+    }
+    cb(err,result);
+  })
+}
+
+exports.deleteIntro=(parentId,introId,cb)=>{
+  Question.findOne({_id:parentId},(err,result)=>{
+    if(result){
+      result.introQuestions.id(introId).remove();
+      result.save((err,result)=>{
+        return cb(err,result);
+      });
+    }
+    cb(err,result);
+  })
+  // Question.introQuestions.remove({_id:introId},(err,result)=>{
+  //     cb(err,result);
+  // })
 }

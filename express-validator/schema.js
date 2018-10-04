@@ -5,12 +5,7 @@ exports.signup = [
     check('iv', 'IV is required').exists()
 ];
 
-exports.postQuestion = [
-    check('type', 'Question type is required').exists(),
-    check('introQuestions', 'Intro Questions are required').exists(),
-    check('questions', 'Questions are required').exists(),
-    check('dueDate', 'Questions are required').exists()
-];
+
 
 exports.question={
     putIntroQuestion:[
@@ -22,5 +17,11 @@ exports.question={
         check('parentId',':parentId param is required').exists(),
         check('coreId',':coreId param is required').exists(),
         check('question','question to be updated is required').exists()
+    ],
+    postQuestion:[
+        check('coreQuestions',"Core Questions are required").exists(),
+        check('dueDate','Due date is required').exists(),
+        check('introQuestions','IntroQuestions are required').exists(),
+        check('type','Type is required').exists()
     ]
 }

@@ -12,7 +12,7 @@ const answerSchema = new mongoose.Schema({
     type:{type:String,required:true},
     questionSetId:{type:mongoose.SchemaTypes.ObjectId,required:true},
     introQuestions:{type:[subAnswerSchema]},
-    questions:{type:[subAnswerSchema]}
+    coreQuestions:{type:[subAnswerSchema]}
 });
 
 module.exports = mongoose.model('Answer',answerSchema);

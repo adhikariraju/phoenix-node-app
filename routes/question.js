@@ -5,7 +5,7 @@ var verify=require("../utils/verify")
 var schema = require("../express-validator/schema")
 var validation = require("../express-validator/validation")  //express-validator common middleware
 
-router.use(verify.verifyUser);
+// router.use(verify.verifyUser);
 
 router.get("/",(req,res)=>{
     console.log(req.query);
@@ -57,10 +57,9 @@ router.get("/:id",(req,res)=>{
 router.put("/parent/:parentId/intro/:introId",
             schema.question.putIntroQuestion,validation,
             (req,res)=>{
-               let introId=req.params.introId;
-               let parentId=req.params.parentId; 
+               let {introId,parentId}=req.params; 
                let question=req.body.question;
-               questCtrl.updateIntroQuest(introId,parentId,question,(err,result)=>{
+               questCtrl.updateIntroQuest(parentId,introId,question,(err,result)=>{
                  if(err){
                     return res.status(500).send({success:false,
                                 error:err,
@@ -75,12 +74,12 @@ router.put("/parent/:parentId/intro/:introId",
                })   
 });
 
-router.put("/parent/:parentId/core/:coreId",(req,res)=>{
+router.put("/parent/:parentId/core/:coreId",    
              schema.question.putCoreQuestion,validation,
              (req,res)=>{
                  let {parentId,coreId}=req.params;
                  let {question}=req.body
-                 questCtrl.updateCoreQuest(introId,parentId,question,(err,result)=>{
+                 questCtrl.updateCoreQuest(parentId,coreId,question,(err,result)=>{
                     if(err){
                         return res.status(500).send({success:false,
                                     error:err,
@@ -95,7 +94,7 @@ router.put("/parent/:parentId/core/:coreId",(req,res)=>{
                    
                  })
              }
-});
+);
 
 
 router.put("/addViewer/questionId/:questionId",(req,res)=>{
@@ -115,11 +114,59 @@ router.put("/addViewer/questionId/:questionId",(req,res)=>{
           res.status(200).send({success:true})
       }
     })
+});
+
+router.delete("/:id",(req,res)=>{
+    questCtrl.deleteById(req.params.id,(err,result)=>{
+        if(err){
+            res.status(500).send({
+              success:false,
+              error:err  
+            })
+        }
+        else if(result){
+            res.status(200).send({
+                success:true,
+                message:"delete success",
+                result:result
+            })
+        }
+    })
 })
 
+router.delete("/parent/:parentId/intro/:introId",(req,res)=>{
+    let {parentId,introId}=req.params;
+    
+    questCtrl.deleteIntro(parentId,introId,(err,result)=>{
+        if(err){
+            res.status(500).send(err);
+        }
+        else if(result){
+            res.status(200).send({
+                success:true,
+                message:"delete successful"
+            })
+        }
+    })
+})
 
-router.post("/",(req,res)=>{
-   questCtrl.postQuestion(req.params.userId || req.query.userId ||req.body,schema.postQuestion,validation,(err,result)=>{
+router.delete("/parent/:parentId/core/:coreId",(req,res)=>{
+    let {parentId,coreId}=req.params;
+    questCtrl.deleteCore(parentId,coreId,(err,result)=>{
+        if(err){
+            res.status(500).send(err);
+        }
+        else if(result){
+            res.status(200).send({
+                success:true,
+                message:"delete successful"
+            })
+        }
+    }) 
+})
+
+router.post("/",schema.question.postQuestion,validation,(req,res)=>{
+   questCtrl.postQuestion(req.body,(err,result)=>{
        if(err){
            res.status(500).send(err)
        }
@@ -127,6 +174,6 @@ router.post("/",(req,res)=>{
            res.status(200).send(result);
        }
    })
-})
+});
 
 module.exports=router;
