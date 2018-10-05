@@ -64,6 +64,60 @@ exports.postQuestion=(quest,cb)=>{
       });
 };
 
+exports.addCoreQuestion=(parentId,quest,cb)=>{
+  Question.find({_id:parentId},(err,result)=>{
+    if(error){
+      res.status(500).send({
+        message:"Error while finding the parent document"
+      })
+    }
+    
+    else if(result.length>0){
+      result.coreQuestions.push(question);
+      result.save((err,result)=>{
+        if(err){
+          return res.status(500).send({
+            message:"Error while adding the document"
+          })
+        }
+        res.status(201).send({
+          "success":true,
+          "message":"core question post success",
+          result:result
+        })
+
+      })
+    }
+
+    let error=new Error('Parent question not found');
+    error.status=401;
+    next(error); 
+ })
+};
+
+exports.addIntroQuestion=(parentId,quest,cb)=>{
+  Question.find({_id:parentId},(err,result)=>{
+     if(!result.isEmpty()){
+       result.introQuestions.push(question);
+       result.save((err,result)=>{
+         if(err){
+           return res.status(500).send({
+             message:"Error while adding the document"
+           })
+         }
+         res.status(201).send({
+           "success":true,
+           "message":"post success",
+           result:result
+         })
+
+       })
+     }
+     let error=new Error('Parent question not found');
+     error.status=401;
+     next(error); 
+  })
+}
 //update options
 
 exports.markAsViewed=(data,cb)=>{
