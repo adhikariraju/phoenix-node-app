@@ -12,7 +12,7 @@ router.post("/",(req,res)=>{
            error.status=500;
            return next(err);
         }
-        
+
         else if(result){
             return res.status(202).send({message:"Assignment Success"})
         }          
@@ -21,6 +21,7 @@ router.post("/",(req,res)=>{
 
 router.get("/",(req,res)=>{
     assignCtrl.getAllAssignment((err,result)=>{
+        console.log("result of assignment",result)
         if(err){
             return res.status(500).send({err:err});
         }
