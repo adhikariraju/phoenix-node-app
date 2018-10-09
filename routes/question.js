@@ -21,6 +21,17 @@ router.get("/",(req,res)=>{
     })
 });
 
+router.get("/qtypes",(req,res)=>{
+    questCtrl.getAllQtypes((err,result)=>{
+        if(err){
+            res.status(500).send(err);
+        }
+        else if(result){
+            res.status(200).send({questions:result})
+        }
+    })
+});
+
 router.get("/:type",(req,res)=>{
     console.log(req.body)
     questCtrl.getQuestionByType(req.params.type,(err,result)=>{

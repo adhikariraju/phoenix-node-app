@@ -14,9 +14,9 @@ var question=require("./routes/question")
 var signup=require('./routes/signup')
 var v2signup=require('./routes/v2.signup')
 var answer=require('./routes/answer')
-var sugPress=require('./routes/sugarPressure')
-var doctor=require("./routes/doctor")
-var assignment=require("./routes/assign")
+var sugPress=require('./routes/sugarPressure');
+var doctor=require("./routes/doctor");
+var assignment=require("./routes/assign");
 
 var expressValidator = require('express-validator');
 
@@ -51,7 +51,16 @@ app.use(cookieParser());
 // }));
 
 app.use("/",express.static(path.join(__dirname, 'public')));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use(expressValidator());
+
+
 
 
 app.use("/assignment",assignment);

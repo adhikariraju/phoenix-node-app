@@ -13,6 +13,13 @@ exports.getQuestionById=(id,cb)=>{
   })
 };
 
+exports.getAllQtypes=(cb)=>{
+  Question.find({},{type:1},(err,result)=>{
+    cb(err,result);
+  })
+
+}
+
 exports.getAllQuestion=(data,cb)=>{
   
   // Question.find({},(err,result)=>{
@@ -37,8 +44,7 @@ exports.getAllQuestion=(data,cb)=>{
         createdAt:1,
         dueDate:1,
         viewed:{
-          $cond:[{$in:[data.userId,"$viewedBy.userId"]},true,false]
-         
+          $cond:[{$in:[data.userId,"$viewedBy.userId"]},true,false]         
         }
       }
     }
