@@ -80,7 +80,7 @@ router.put("/parent/:parentId/intro/:introId",
                  res.status(201).send({
                      success:true,
                      message:"update success",
-                     result:result
+                     
                   })    
                })   
 });
@@ -100,8 +100,7 @@ router.put("/parent/:parentId/core/:coreId",
                      res.status(201).send({
                          success:true,
                          message:"update success",
-                         result:result
-                      })    
+                        })    
                    
                  })
              }
@@ -187,8 +186,8 @@ router.post("/",schema.question.postQuestion,validation,(req,res)=>{
    })
 });
 
-router.post("/addintro/:parentId",(req,res,next)=>{    
-    questCtrl.addIntroQuestion(req.params.parentId,req.body,next,(error,result)=>{
+router.post("/addintro/:parentId",(req,res)=>{    
+    questCtrl.addIntroQuestion(req.params.parentId,req.body,(error,result)=>{
         if(error){
             return res.status(500).send({
               message:"Error while adding the document"
@@ -197,7 +196,6 @@ router.post("/addintro/:parentId",(req,res,next)=>{
           res.status(201).send({
             "success":true,
             "message":"post success",
-            result:result
           })
     })
 });
@@ -211,8 +209,7 @@ router.post("/addcore/:parentId",(req,res)=>{
           }
           res.status(201).send({
             "success":true,
-            "message":"post success",
-            result:result
+            "message":"post success"            
           })
     })
 })

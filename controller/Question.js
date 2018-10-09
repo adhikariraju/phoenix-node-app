@@ -17,8 +17,7 @@ exports.getAllQtypes=(cb)=>{
   Question.find({},{type:1},(err,result)=>{
     cb(err,result);
   })
-
-}
+};
 
 exports.getAllQuestion=(data,cb)=>{
   
@@ -70,10 +69,9 @@ exports.postQuestion=(quest,cb)=>{
       });
 };
 
-exports.addCoreQuestion=(parentId,question,next,cb)=>{
+exports.addCoreQuestion=(parentId,question,cb)=>{
   Question.findOne({_id:parentId},(err,result)=>{
-    console.log("result",result)
-    if(error){
+    if(err){
       res.status(500).send({
         message:"Error while finding the parent document"
       })
@@ -86,15 +84,14 @@ exports.addCoreQuestion=(parentId,question,next,cb)=>{
       })
     }
     else{
-      let error=new Error('Parent question not found');
-      error.status=401;
-      next(error);
-    }
-     
+      res.status(500).send({
+        message:"Parent Quesion not found"
+      })
+    }     
  })
 };
 
-exports.addIntroQuestion=(parentId,question,next,cb)=>{
+exports.addIntroQuestion=(parentId,question,cb)=>{
   Question.findOne({_id:parentId},(err,result)=>{    
     //if error while fetching data from questionnaire
     if(err){
@@ -114,10 +111,11 @@ exports.addIntroQuestion=(parentId,question,next,cb)=>{
     }
 
     else{     
-     let error=new Error('Parent question not found');
-     error.status=401;
-     next(error);} 
-  })
+      res.status(500).send({
+        message:"Parent question not found"
+      })
+    }
+  })  
 }
 //update options
 

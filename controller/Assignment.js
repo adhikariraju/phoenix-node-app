@@ -4,8 +4,8 @@ var User=require("../model/User");
 
 exports.assignUserToDoc=(userId,doctorId,callback)=>{
     var assign=new Assignment({
-        userId:userId,
-        assignedTo:doctorId
+        user:userId,
+        doctor:doctorId
     })
     userCtrl.setAssignStatus(userId,true,(err,result)=>{
         if(err){
