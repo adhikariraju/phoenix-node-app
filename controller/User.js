@@ -11,8 +11,6 @@ exports.setAssignStatus=(userId,status,callback)=>{
 }
 
 
-
-
 exports.findByOpenId=(oid,cb)=>{
     User.where({ openid: oid }).findOne(
         function (err, user) {

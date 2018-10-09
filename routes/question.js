@@ -7,6 +7,11 @@ var validation = require("../express-validator/validation")  //express-validator
 
 // router.use(verify.verifyUser);
 
+
+
+
+//---------------------------GET ROUTE STARTS --------------------------------------
+
 router.get("/",(req,res)=>{
     console.log(req.query);
     questCtrl.getAllQuestion(req.query,(err,result)=>{
@@ -65,6 +70,58 @@ router.get("/:id",(req,res)=>{
     })
 });
 
+
+// -------------------GET ROUTES ENDS ------------------------
+
+
+
+//  ------------------POST ROUTE STARTS -----------------------
+//
+
+router.post("/",schema.question.postQuestion,validation,(req,res)=>{
+    questCtrl.postQuestion(req.body,(err,result)=>{
+        if(err){
+            res.status(500).send(err)
+        }
+        else{
+            res.status(200).send(result);
+        }
+    })
+ });
+ 
+ router.post("/addintro/:parentId",(req,res)=>{    
+     questCtrl.addIntroQuestion(req.params.parentId,req.body,(error,result)=>{
+         if(error){
+             return res.status(500).send({
+               message:"Error while adding the document"
+             })
+           }
+           res.status(201).send({
+             "success":true,
+             "message":"post success",
+           })
+     })
+ });
+ 
+ router.post("/addcore/:parentId",(req,res)=>{    
+     questCtrl.addCoreQuestion(req.params.parentId,req.body,(error,result)=>{
+         if(error){
+             return res.status(500).send({
+               message:"Error while adding the document"
+             })
+           }
+           res.status(201).send({
+             "success":true,
+             "message":"post success"            
+           })
+     })
+ })
+
+// ----------------------------POST ROUTES END ----------------------------------
+//
+
+// ---------------------------- PUT ROUTES STARTS --------------------------------
+
 router.put("/parent/:parentId/intro/:introId",
             schema.question.putIntroQuestion,validation,
             (req,res)=>{
@@ -106,7 +163,6 @@ router.put("/parent/:parentId/core/:coreId",
              }
 );
 
-
 router.put("/addViewer/questionId/:questionId",(req,res)=>{
     var {userId}=req.decoded||req.body||req.query
     let postData={
@@ -125,6 +181,10 @@ router.put("/addViewer/questionId/:questionId",(req,res)=>{
       }
     })
 });
+
+// ----------------------------------- PUT ROUTE ENDS ---------------------------------
+
+// ----------------------------------- DELETE ROUTE STARTS -------------------------------
 
 router.delete("/:id",(req,res)=>{
     questCtrl.deleteById(req.params.id,(err,result)=>{
@@ -175,43 +235,6 @@ router.delete("/parent/:parentId/core/:coreId",(req,res)=>{
     }) 
 })
 
-router.post("/",schema.question.postQuestion,validation,(req,res)=>{
-   questCtrl.postQuestion(req.body,(err,result)=>{
-       if(err){
-           res.status(500).send(err)
-       }
-       else{
-           res.status(200).send(result);
-       }
-   })
-});
-
-router.post("/addintro/:parentId",(req,res)=>{    
-    questCtrl.addIntroQuestion(req.params.parentId,req.body,(error,result)=>{
-        if(error){
-            return res.status(500).send({
-              message:"Error while adding the document"
-            })
-          }
-          res.status(201).send({
-            "success":true,
-            "message":"post success",
-          })
-    })
-});
-
-router.post("/addcore/:parentId",(req,res)=>{    
-    questCtrl.addCoreQuestion(req.params.parentId,req.body,(error,result)=>{
-        if(error){
-            return res.status(500).send({
-              message:"Error while adding the document"
-            })
-          }
-          res.status(201).send({
-            "success":true,
-            "message":"post success"            
-          })
-    })
-})
+// ----------------------------------- DELETE ROUTE ENDS ------------------------------------------
 
 module.exports=router;
