@@ -21,19 +21,6 @@ exports.getAllQtypes=(cb)=>{
 
 exports.getAllQuestion=(data,cb)=>{
   
-  // Question.find({},(err,result)=>{
-  //     var questions=[];
-  //     result.map((question,index)=>{
-  //       var question;
-  //        question.viewedBy.map((id)=>{
-  //          if(id.userId==data.userId){
-  //             question
-  //          }
-  //        })
-  //     })
-  //      cb(err,result)    
-  // })
-
   Question.aggregate([
     {
       $project:{
@@ -165,9 +152,10 @@ exports.deleteById=(id,cb)=>{
 exports.deleteCore=(parentId,coreId,cb)=>{
   Question.findOne({_id:parentId},(err,result)=>{
     if(result){
+      console.log("coreId",coreId);
       result.coreQuestions.id(coreId).remove();
-      result.save((err,result)=>{
-        return cb(err,result);
+      return result.save((err,result)=>{
+         cb(err,result);
       });      
     }
     cb(err,result);
@@ -177,14 +165,25 @@ exports.deleteCore=(parentId,coreId,cb)=>{
 exports.deleteIntro=(parentId,introId,cb)=>{
   Question.findOne({_id:parentId},(err,result)=>{
     if(result){
+      console.log("introId",introId);
       result.introQuestions.id(introId).remove();
-      result.save((err,result)=>{
-        return cb(err,result);
+      return result.save((err,result)=>{
+         cb(err,result);
       });
     }
     cb(err,result);
   })
-  // Question.introQuestions.remove({_id:introId},(err,result)=>{
-  //     cb(err,result);
-  // })
+
+    // Question.update({
+    //   _id: parentId
+    // }, {
+    //   $pull: {
+    //     introQuestions: {
+    //       _id: introId
+    //     }
+    //   }
+    // },(err,result)=>{
+    //   cb(err,result)
+    // });
+
 }

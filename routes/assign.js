@@ -12,12 +12,11 @@ router.post("/",(req,res)=>{
            error.status=500;
            return next(err);
         }
-
+        
         else if(result){
             return res.status(202).send({message:"Assignment Success"})
         }          
-    })
-        
+    })        
 })
 
 router.get("/",(req,res)=>{
