@@ -62,6 +62,7 @@ app.use(expressValidator());
 
 
 
+// client route
 
 app.use("/assignment",assignment);
 app.use("/login",login);
@@ -72,6 +73,16 @@ app.use("/answer",answer);
 app.use("/sugpress",sugPress)
 app.use("/doctor",doctor);
 app.use("/v2/signup",v2signup);
+
+// admin routes
+
+// app.use("/admin",adminQuestion);
+
+
+
+
+
+
 // app.use("/decrypt",decrypt);
 
 // catch 404 and forward to error handler

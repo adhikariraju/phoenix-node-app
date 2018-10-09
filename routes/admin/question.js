@@ -1,69 +1,9 @@
 var express=require('express')
 var router=express.Router();
-var questCtrl=require("../controller/Question");
-var verify=require("../utils/verify")
-var schema = require("../express-validator/schema")
-var validation = require("../express-validator/validation")  //express-validator common middleware
-
-// router.use(verify.verifyUser);
-
-router.get("/",(req,res)=>{
-    console.log(req.query);
-    questCtrl.getAllQuestion(req.query,(err,result)=>{
-        if(err){
-            console.log(err);
-            res.status(500).send(err);
-        }
-        else if(result) {
-             console.log(result) 
-             res.status(200).send({questions:result}); 
-        } 
-    })
-});
-
-router.get("/qtypes",(req,res)=>{
-    questCtrl.getAllQtypes((err,result)=>{
-        if(err){
-            res.status(500).send(err);
-        }
-        else if(result){
-            res.status(200).send({questions:result})
-        }
-    })
-});
-
-router.get("/:type",(req,res)=>{
-    console.log(req.body)
-    questCtrl.getQuestionByType(req.params.type,(err,result)=>{
-        if(err){
-          console.log(err);
-          res.status(500).send(err);
-        }
-        else if(result) {
-           console.log(result) 
-           res.status(200).send(result); 
-        }
-    })
-});
-
-router.get("/:id",(req,res)=>{
-    questCtrl.getQuestionById(req.params.id,(err,result)=>{
-        if(err){
-            res.status(500).send({
-                success:false,
-                error:err,
-                message:"Error while getting question by Id"
-            })
-        }
-        else if(result){
-            res.status(200).send({
-                success:true,
-                message:"get question success",
-                result:result
-            })
-        }
-    })
-});
+var questCtrl=require("../../admin/controller/Question");
+var verify=require("../../utils/verify")
+var schema = require("../../express-validator/schema")
+var validation = require("../../express-validator/validation")  //express-validator common middleware
 
 router.put("/parent/:parentId/intro/:introId",
             schema.question.putIntroQuestion,validation,
@@ -187,23 +127,9 @@ router.post("/",schema.question.postQuestion,validation,(req,res)=>{
    })
 });
 
-router.post("/addintro/:parentId",(req,res,next)=>{    
-    questCtrl.addIntroQuestion(req.params.parentId,req.body,next,(error,result)=>{
-        if(error){
-            return res.status(500).send({
-              message:"Error while adding the document"
-            })
-          }
-          res.status(201).send({
-            "success":true,
-            "message":"post success",
-            result:result
-          })
-    })
-});
-
-router.post("/addcore/:parentId",(req,res)=>{    
-    questCtrl.addCoreQuestion(req.params.parentId,req.body,(error,result)=>{
+router.post("/addintro/:parentId",(req,res)=>{
+    
+    questCtrl.addIntroQuestion(req.params.parentId,req.body,(error,result)=>{
         if(error){
             return res.status(500).send({
               message:"Error while adding the document"
@@ -217,4 +143,18 @@ router.post("/addcore/:parentId",(req,res)=>{
     })
 })
 
-module.exports=router;
+router.post("/addcore/:parentId",(req,res)=>{
+    
+    questCtrl.addCoreQuestion(req.params.parentId,req.body,(error,result)=>{
+        if(error){
+            return res.status(500).send({
+              message:"Error while adding the document"
+            })
+          }
+          res.status(201).send({
+            "success":true,
+            "message":"post success",
+            result:result
+          })
+    })
+})

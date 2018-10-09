@@ -70,31 +70,32 @@ exports.postQuestion=(quest,cb)=>{
       });
 };
 
-exports.addCoreQuestion=(parentId,quest,cb)=>{
-  Question.find({_id:parentId},(err,result)=>{
+exports.addCoreQuestion=(parentId,question,next,cb)=>{
+  Question.findOne({_id:parentId},(err,result)=>{
+    console.log("result",result)
     if(error){
       res.status(500).send({
         message:"Error while finding the parent document"
       })
     }
     
-    else if(result.length>0){
+    else if(result){
       result.coreQuestions.push(question);
       result.save((err,result)=>{
         cb(err,result);
-
       })
     }
-
-    let error=new Error('Parent question not found');
-    error.status=401;
-    next(error); 
+    else{
+      let error=new Error('Parent question not found');
+      error.status=401;
+      next(error);
+    }
+     
  })
 };
 
-exports.addIntroQuestion=(parentId,quest,cb)=>{
-  Question.find({_id:parentId},(err,result)=>{
-    
+exports.addIntroQuestion=(parentId,question,next,cb)=>{
+  Question.findOne({_id:parentId},(err,result)=>{    
     //if error while fetching data from questionnaire
     if(err){
       res.status(500).send({
@@ -103,16 +104,19 @@ exports.addIntroQuestion=(parentId,quest,cb)=>{
     }
 
      //if parentId is in the list.
-    else if(result.length>0){
+    else if(result){
+       console.log("inside addintro result")
        result.introQuestions.push(question);
+
        result.save((err,result)=>{
-           cb(err,result);
+          return cb(err,result);
        })
     }
 
+    else{     
      let error=new Error('Parent question not found');
      error.status=401;
-     next(error); 
+     next(error);} 
   })
 }
 //update options
