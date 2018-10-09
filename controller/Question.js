@@ -75,16 +75,7 @@ exports.addCoreQuestion=(parentId,quest,cb)=>{
     else if(result.length>0){
       result.coreQuestions.push(question);
       result.save((err,result)=>{
-        if(err){
-          return res.status(500).send({
-            message:"Error while adding the document"
-          })
-        }
-        res.status(201).send({
-          "success":true,
-          "message":"core question post success",
-          result:result
-        })
+        cb(err,result);
 
       })
     }
@@ -97,22 +88,22 @@ exports.addCoreQuestion=(parentId,quest,cb)=>{
 
 exports.addIntroQuestion=(parentId,quest,cb)=>{
   Question.find({_id:parentId},(err,result)=>{
-     if(!result.isEmpty()){
+    
+    //if error while fetching data from questionnaire
+    if(err){
+      res.status(500).send({
+        message:"Error while finding the parent document"
+      })
+    }
+
+     //if parentId is in the list.
+    else if(result.length>0){
        result.introQuestions.push(question);
        result.save((err,result)=>{
-         if(err){
-           return res.status(500).send({
-             message:"Error while adding the document"
-           })
-         }
-         res.status(201).send({
-           "success":true,
-           "message":"post success",
-           result:result
-         })
-
+           cb(err,result);
        })
-     }
+    }
+
      let error=new Error('Parent question not found');
      error.status=401;
      next(error); 

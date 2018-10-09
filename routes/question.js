@@ -176,4 +176,36 @@ router.post("/",schema.question.postQuestion,validation,(req,res)=>{
    })
 });
 
+router.post("/addintro/:parentId",(req,res)=>{
+    
+    questCtrl.addIntroQuestion(req.params.parentId,req.body,(error,result)=>{
+        if(error){
+            return res.status(500).send({
+              message:"Error while adding the document"
+            })
+          }
+          res.status(201).send({
+            "success":true,
+            "message":"post success",
+            result:result
+          })
+    })
+})
+
+router.post("/addcore/:parentId",(req,res)=>{
+    
+    questCtrl.addCoreQuestion(req.params.parentId,req.body,(error,result)=>{
+        if(error){
+            return res.status(500).send({
+              message:"Error while adding the document"
+            })
+          }
+          res.status(201).send({
+            "success":true,
+            "message":"post success",
+            result:result
+          })
+    })
+})
+
 module.exports=router;

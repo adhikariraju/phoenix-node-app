@@ -1,5 +1,18 @@
 var User = require('../model/User')
 
+
+exports.setAssignStatus=(userId,status,callback)=>{
+    User.findOneAndUpdate({_id:userId},{$set:{assigned:status}},(err,result)=>{
+        if(!result){
+          return callback(err,null);
+        }
+        callback(null,result);
+    })
+}
+
+
+
+
 exports.findByOpenId=(oid,cb)=>{
     User.where({ openid: oid }).findOne(
         function (err, user) {

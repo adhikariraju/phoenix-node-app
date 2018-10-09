@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     "unionId": String,
     "mobile":String,
     "verified":{type:Boolean,default:false},
-    "assignedTo":{type:String},
+    "assigned":{type:Boolean,default:false},
     "subscribe_time":{type:Date,default:Date.now()}
 });
 

@@ -16,6 +16,7 @@ var v2signup=require('./routes/v2.signup')
 var answer=require('./routes/answer')
 var sugPress=require('./routes/sugarPressure')
 var doctor=require("./routes/doctor")
+var assignment=require("./routes/assign")
 
 var expressValidator = require('express-validator');
 
@@ -53,6 +54,7 @@ app.use("/",express.static(path.join(__dirname, 'public')));
 app.use(expressValidator());
 
 
+app.use("/assignment",assignment);
 app.use("/login",login);
 app.use("/message",message);
 app.use("/question",question);
@@ -72,7 +74,6 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  console.log("error",err);
   // render the error page.
   res.status(err.status || 500).send({
     success:false,

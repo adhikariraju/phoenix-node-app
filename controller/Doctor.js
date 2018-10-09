@@ -2,7 +2,7 @@ var Doctor=require("../model/Doctor");
 
 exports.createDoctor=(data,callback)=>{
   var doctor=new Doctor({
-     data
+     ...data
   });
   
   doctor.save((err,result)=>{
