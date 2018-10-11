@@ -17,7 +17,7 @@ router.post("/",(req,res)=>{
             return res.status(202).send({message:"Assignment Success"})
         }          
     })        
-})
+});
 
 router.get("/",(req,res)=>{
     assignCtrl.getAllAssignment((err,result)=>{
