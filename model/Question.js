@@ -35,6 +35,7 @@ const introquestSchema=new mongoose.Schema({
     placeholder:String,
     options:[optionsSchema]
 })  
+
 // difference is in core question
 // default form-type is radio
 const corequestSchema=new mongoose.Schema({

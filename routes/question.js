@@ -90,6 +90,7 @@ router.post("/",schema.question.postQuestion,validation,(req,res)=>{
  });
  
  router.post("/addintro/:parentId",(req,res)=>{    
+     console.log("req.body",req.body)
      questCtrl.addIntroQuestion(req.params.parentId,req.body,(error,result)=>{
          if(error){
              return res.status(500).send({
@@ -104,6 +105,7 @@ router.post("/",schema.question.postQuestion,validation,(req,res)=>{
  });
  
  router.post("/addcore/:parentId",(req,res)=>{    
+     console.log("req.body",req.body)
      questCtrl.addCoreQuestion(req.params.parentId,req.body,(error,result)=>{
          if(error){
              return res.status(500).send({
@@ -134,8 +136,8 @@ router.put("/parent/:parentId/intro/:introId",
                                 message:"Error while updating"
                             })
                  }
-                 res.status(201).send({
-                     success:true,
+                 res.status(201).s
+                     success:true,
                      message:"update success",
                      
                   })    
@@ -206,6 +208,8 @@ router.delete("/:id",(req,res)=>{
 
 router.delete("/parent/:parentId/intro/:introId",(req,res)=>{
     let {parentId,introId}=req.params;
+    console.log("parentId",parentId);
+    console.log("coreId",introId);
     
     questCtrl.deleteIntro(parentId,introId,(err,result)=>{
         if(err){
@@ -214,7 +218,8 @@ router.delete("/parent/:parentId/intro/:introId",(req,res)=>{
         else if(result){
             res.status(200).send({
                 success:true,
-                message:"delete successful"
+                message:"delete successful",
+                result:result
             })
         }
     })
@@ -229,7 +234,8 @@ router.delete("/parent/:parentId/core/:coreId",(req,res)=>{
         else if(result){
             res.status(200).send({
                 success:true,
-                message:"delete successful"
+                message:"delete successful",
+                result:result
             })
         }
     }) 

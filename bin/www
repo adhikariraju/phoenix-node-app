@@ -15,7 +15,7 @@ const { createTerminus } = require('@godaddy/terminus');
  */
 
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '3001');
 var host="0.0.0.0";
 app.set('port', port);
 

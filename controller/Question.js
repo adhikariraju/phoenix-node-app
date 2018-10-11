@@ -2,7 +2,7 @@ var Question=require("../model/Question");
 
 
 exports.getQuestionByType=(type,cb)=>{
-  Question.find({type:type},(err,result)=>{       
+  Question.findOne({type:type},(err,result)=>{       
        cb(err,result);
   })
 };
@@ -35,7 +35,6 @@ exports.getAllQuestion=(data,cb)=>{
       }
     }
   ]).exec((err,result)=>{
-    console.log("err||result",err||result)
     cb(err,result)    
   })
 }
@@ -89,7 +88,6 @@ exports.addIntroQuestion=(parentId,question,cb)=>{
 
      //if parentId is in the list.
     else if(result){
-       console.log("inside addintro result")
        result.introQuestions.push(question);
 
        result.save((err,result)=>{
@@ -107,7 +105,6 @@ exports.addIntroQuestion=(parentId,question,cb)=>{
 //update options
 
 exports.markAsViewed=(data,cb)=>{
-  console.log(data)
   Question.findByIdAndUpdate({_id:data.questionSetId},
                              {$push:{viewedBy:{userId:data.userId}}},
                              (err,result)=>{
@@ -116,8 +113,7 @@ exports.markAsViewed=(data,cb)=>{
 }
 
 exports.updateCoreQuest=(parentId,coreId,question,cb)=>{
-  console.log("coreid",coreId);
-  console.log("parentid",parentId);
+
   Question.findOneAndUpdate(
     {"_id":parentId,"coreQuestions._id":coreId},
     {$set:{"coreQuestions.$":question}},
@@ -152,7 +148,6 @@ exports.deleteById=(id,cb)=>{
 exports.deleteCore=(parentId,coreId,cb)=>{
   Question.findOne({_id:parentId},(err,result)=>{
     if(result){
-      console.log("coreId",coreId);
       result.coreQuestions.id(coreId).remove();
       return result.save((err,result)=>{
          cb(err,result);
@@ -164,8 +159,10 @@ exports.deleteCore=(parentId,coreId,cb)=>{
 
 exports.deleteIntro=(parentId,introId,cb)=>{
   Question.findOne({_id:parentId},(err,result)=>{
+    console.log("rsult",result);
     if(result){
-      console.log("introId",introId);
+      console.log("delete intro ",result)
+      console.log("delete intro ",result.introQuestions)
       result.introQuestions.id(introId).remove();
       return result.save((err,result)=>{
          cb(err,result);
