@@ -20,7 +20,10 @@ exports.assignUserToDoc=(userId,doctorId,callback)=>{
 }
 
 exports.getAllAssignment=(callback)=>{
-    Assignment.find({},(err,result)=>{
+    Assignment.find({})
+        .populate('user','nickname headimgurl')
+        .populate('doctor','nickname headimgurl')
+        .exec((err,result)=>{
         callback(err,result);
     })
 }

@@ -128,7 +128,7 @@ router.put("/parent/:parentId/intro/:introId",
             schema.question.putIntroQuestion,validation,
             (req,res)=>{
                let {introId,parentId}=req.params; 
-               let question=req.body.question;
+               let question=req.body;
                questCtrl.updateIntroQuest(parentId,introId,question,(err,result)=>{
                  if(err){
                     return res.status(500).send({success:false,
@@ -148,7 +148,7 @@ router.put("/parent/:parentId/core/:coreId",
              schema.question.putCoreQuestion,validation,
              (req,res)=>{
                  let {parentId,coreId}=req.params;
-                 let {question}=req.body
+                 let question=req.body
                  questCtrl.updateCoreQuest(parentId,coreId,question,(err,result)=>{
                     if(err){
                         return res.status(500).send({success:false,

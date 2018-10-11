@@ -11,12 +11,12 @@ exports.question={
     putIntroQuestion:[
         check('parentId',':parentId param is required').exists(),
         check('introId',':introId param is required').exists(),
-        check('question','question to be updated is required').exists()
+        // check('question','question to be updated is required').exists()
     ],
     putCoreQuestion:[
         check('parentId',':parentId param is required').exists(),
         check('coreId',':coreId param is required').exists(),
-        check('question','question to be updated is required').exists()
+        // check('question','question to be updated is required').exists()
     ],
     postQuestion:[
         check('coreQuestions',"Core Questions are required").exists(),
