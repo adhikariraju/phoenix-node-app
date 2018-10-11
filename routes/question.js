@@ -136,8 +136,8 @@ router.put("/parent/:parentId/intro/:introId",
                                 message:"Error while updating"
                             })
                  }
-                 res.status(201).s
-                     success:true,
+                 res.status(201).send({
+                     success:true,
                      message:"update success",
                      
                   })    
