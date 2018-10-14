@@ -2,7 +2,10 @@ var User = require('../model/User')
 
 
 exports.setAssignStatus=(userId,status,callback)=>{
-    User.findOneAndUpdate({_id:userId},{$set:{assigned:status}},(err,result)=>{
+    User.findOneAndUpdate({_id:userId},
+                          {$set:{assigned:status}},
+                          {new:true},
+                          (err,result)=>{
         if(!result){
           return callback(err,null);
         }

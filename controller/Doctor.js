@@ -12,7 +12,7 @@ exports.createDoctor=(data,callback)=>{
 }
 
 exports.getDoctorById=(data,callback)=>{
-   Doctor.findById({id:data.id},(err,result)=>{
+   Doctor.findById({_id:data.id},(err,result)=>{
        callback(err,result)
    })
 }

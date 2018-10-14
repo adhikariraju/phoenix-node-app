@@ -1,0 +1,89 @@
+Main Route
+/assignment
+
+
+Create assignment
+POST  "/assignment"
+ Req
+   req.body{
+     userId:ObjectId,
+     doctorId:ObjectId
+   };
+
+  Res
+    {
+        success:true/false,
+        message:"",
+        result:{},
+        error:{}
+    } 
+
+Get Assignment  
+  GET "/assignment"
+  
+  Res {
+      result:[
+        {
+           _id:"",
+           user:{
+               _id:"",
+               headimgurl:"",
+               nickname:""
+           },
+           doctor:{
+               _id:"",
+               headimgurl:"",
+               nickname:""
+           }
+        }
+      ]      
+    }
+
+Get UnAssignment Users
+    
+    GET "/assignment/unassignedUser"
+
+    Res{
+        result:[{
+          _id:"",
+          headimgurl:"",
+          nickname:""
+        }]
+    }
+    
+
+Get doctor
+
+   GET "/assignment/doctor"
+
+   Res{
+       result:[{
+           _id:"",
+           headimgurl:"",
+           nickname:""
+       }]router.get("/unassignedUser")    
+   }
+
+Delete assignment
+
+   Delete "/assignment/:assignId"
+
+   Res {
+        result:{
+         _id:"",
+         user:"",
+         doctor:"" 
+      }
+    }
+
+Update assignment 
+
+    PUT "/assignment/:assignId"
+     
+    Res {
+      result:{
+            _id:"",
+            user:"",
+            doctor:""  
+      }
+    } 

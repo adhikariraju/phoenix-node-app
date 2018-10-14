@@ -1,4 +1,5 @@
 const { check } = require('express-validator/check');
+const Question =require("../model/Question");
 
 exports.signup = [
     check('encryptedData', 'Encrypted Data is required').exists(),
@@ -19,9 +20,16 @@ exports.question={
         // check('question','question to be updated is required').exists()
     ],
     postQuestion:[
+        check('type','Type is required').custom(value=>{
+           Question.findOne({type:value}).then(question=>{
+               if(question){
+                   throw new Error("Question Already Exist")
+               }
+           }) 
+        }).exists(),
         check('coreQuestions',"Core Questions are required").exists(),
         check('dueDate','Due date is required').exists(),
         check('introQuestions','IntroQuestions are required').exists(),
-        check('type','Type is required').exists()
+        
     ]
 }

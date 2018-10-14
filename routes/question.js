@@ -9,7 +9,6 @@ var validation = require("../express-validator/validation")  //express-validator
 
 
 
-
 //---------------------------GET ROUTE STARTS --------------------------------------
 
 router.get("/",(req,res)=>{
@@ -74,11 +73,10 @@ router.get("/:id",(req,res)=>{
 // -------------------GET ROUTES ENDS ------------------------
 
 
-
 //  ------------------POST ROUTE STARTS -----------------------
-//
 
-router.post("/",schema.question.postQuestion,validation,(req,res)=>{
+
+ router.post("/",schema.question.postQuestion,validation,(req,res)=>{
     questCtrl.postQuestion(req.body,(err,result)=>{
         if(err){
             res.status(500).send(err)
@@ -89,35 +87,35 @@ router.post("/",schema.question.postQuestion,validation,(req,res)=>{
     })
  });
  
- router.post("/addintro/:parentId",(req,res)=>{    
-     console.log("req.body",req.body)
-     questCtrl.addIntroQuestion(req.params.parentId,req.body,(error,result)=>{
-         if(error){
-             return res.status(500).send({
-               message:"Error while adding the document"
-             })
-           }
-           res.status(201).send({
-             "success":true,
-             "message":"post success",
-           })
-     })
- });
+router.post("/addintro/:parentId",(req,res)=>{    
+    console.log("req.body",req.body)
+    questCtrl.addIntroQuestion(req.params.parentId,req.body,(error,result)=>{
+        if(error){
+            return res.status(500).send({
+            message:"Error while adding the document"
+            })
+        }
+        res.status(201).send({
+            "success":true,
+            "message":"post success",
+        })
+    })
+});
  
- router.post("/addcore/:parentId",(req,res)=>{    
-     console.log("req.body",req.body)
-     questCtrl.addCoreQuestion(req.params.parentId,req.body,(error,result)=>{
-         if(error){
-             return res.status(500).send({
-               message:"Error while adding the document"
-             })
-           }
-           res.status(201).send({
-             "success":true,
-             "message":"post success"            
-           })
-     })
- })
+router.post("/addcore/:parentId",(req,res)=>{    
+    console.log("req.body",req.body)
+    questCtrl.addCoreQuestion(req.params.parentId,req.body,(error,result)=>{
+        if(error){
+            return res.status(500).send({
+            message:"Error while adding the document"
+            })
+        }
+        res.status(201).send({
+            "success":true,
+            "message":"post success"            
+        })
+    })
+})
 
 // ----------------------------POST ROUTES END ----------------------------------
 //
@@ -125,23 +123,23 @@ router.post("/",schema.question.postQuestion,validation,(req,res)=>{
 // ---------------------------- PUT ROUTES STARTS --------------------------------
 
 router.put("/parent/:parentId/intro/:introId",
-            schema.question.putIntroQuestion,validation,
-            (req,res)=>{
-               let {introId,parentId}=req.params; 
-               let question=req.body;
-               questCtrl.updateIntroQuest(parentId,introId,question,(err,result)=>{
-                 if(err){
-                    return res.status(500).send({success:false,
-                                error:err,
-                                message:"Error while updating"
-                            })
-                 }
-                 res.status(201).send({
-                     success:true,
-                     message:"update success",
-                     
-                  })    
-               })   
+    schema.question.putIntroQuestion,validation,
+    (req,res)=>{
+        let {introId,parentId}=req.params; 
+        let question=req.body;
+        questCtrl.updateIntroQuest(parentId,introId,question,(err,result)=>{
+            if(err){
+            return res.status(500).send({success:false,
+                        error:err,
+                        message:"Error while updating"
+                    })
+            }
+            res.status(201).send({
+                success:true,
+                message:"update success",
+                
+            })    
+       })   
 });
 
 router.put("/parent/:parentId/core/:coreId",    

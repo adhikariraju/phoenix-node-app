@@ -50,8 +50,42 @@ router.get("/unassignedUser",(req,res)=>{
     })
 });
 
-router.get("/:userId",(req,res)=>{
-       
+router.put("/:assignId",(req,res)=>{
+   assignCtrl.updateAssign(req.params.assignId,req.body.doctorId,(err,result)=>{
+    console.log("update assign",result);
+    console.log("update assing err",err);
+      if(err){
+          return res.status(500).send({
+            "message":"Error while updating",
+            "success":false,
+            "error":err 
+          })
+      }
+      res.status(200).send({
+          "success":true,
+          "result":result,
+          "message":"Update success"
+      })
+   })     
+})
+
+router.delete("/:assignId",(req,res)=>{
+    assignCtrl.deleteAssign(req.params.assignId,(err,result)=>{
+        console.log("delete assign",result);
+        console.log("delete assing err",err);
+        if(err){
+            return res.status(500).send({
+              "message":"Error while deleting",
+              "success":false,
+              "error":err 
+            })
+        }
+        res.status(200).send({
+            "success":true,
+            "result":result,
+            "message":"delete success"
+        })
+    })
 })
 
 module.exports = router;

@@ -33,3 +33,28 @@ exports.getUnAssignedUsers=(callback)=>{
         callback(err,result);
     })
 }
+
+exports.updateAssign=(assignId,doctorId,cb)=>{
+    console.log("doctorId",doctorId);
+    Assignment.findOneAndUpdate(
+        {"_id":assignId},
+        {$set:{"doctor":doctorId}},
+        {new:true},
+        (err,result)=>{
+         
+            cb(err,result)
+        }   
+    );
+}
+                                      
+exports.deleteAssign=(assignId,cb)=>{
+    Assignment.findByIdAndDelete(assignId,(err,result)=>{
+        if(result){
+            console.log("delte assign result",result)
+           return userCtrl.setAssignStatus(result.user,false,(err,result)=>{
+                cb(err,result);
+            })
+        }
+        cb(err,null);   
+    })
+}
