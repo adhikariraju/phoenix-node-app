@@ -51,7 +51,7 @@ exports.deleteAssign=(assignId,cb)=>{
     Assignment.findByIdAndDelete(assignId,(err,result)=>{
         if(result){
             console.log("delte assign result",result)
-           return userCtrl.setAssignStatus(result.user,false,(err,result)=>{
+           return userCtrl.setAssignStatus(result.user,false,(err,usrresult)=>{
                 cb(err,result);
             })
         }
