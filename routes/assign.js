@@ -33,7 +33,8 @@ router.get("/",(req,res)=>{
     })
 })
 
-router.get("/:assignId",(req,res)=>{
+router.get("/assignId/:assignId",(req,res)=>{
+    console.log("assignment by Id");
     assignCtrl.getAssignmentById(req.params.assignId,(err,result)=>{
         if(err){
            return res.status(500).send({err:err}); 
@@ -47,6 +48,7 @@ router.get("/:assignId",(req,res)=>{
 })
 
 router.get("/unassignedUser",(req,res)=>{
+    console.log("get unassigned")
     assignCtrl.getUnAssignedUsers((err,result)=>{
         if(err){
             return res.status(500).send({

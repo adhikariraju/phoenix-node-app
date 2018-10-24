@@ -16,7 +16,13 @@ exports.assignUserToDoc=(userId,doctorId,callback)=>{
         assign.save((err,result)=>{
             callback(err,result);
         })        
-    })       
+    })    
+}
+
+exports.getAssignmentById=(assignId,callback)=>{
+    Assignment.find({_id:assignId},(err,result)=>{
+       callback(err,result); 
+    })
 }
 
 exports.getAllAssignment=(callback)=>{
