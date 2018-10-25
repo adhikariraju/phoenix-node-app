@@ -45,12 +45,12 @@ exports.updateAssign=(assignId,doctorId,cb)=>{
     Assignment.findOneAndUpdate(
         {"_id":assignId},
         {$set:{"doctor":doctorId}},
-        {new:true},
-        (err,result)=>{
-         
-            cb(err,result)
-        }   
-    );
+        {new:true})
+        .populate('user','nickname headimgurl')
+        .populate('doctor','nickname headimgurl')
+        .exec((err,result)=>{
+           cb(err,result)           
+        });
 }
                                       
 exports.deleteAssign=(assignId,cb)=>{

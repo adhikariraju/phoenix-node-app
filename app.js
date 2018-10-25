@@ -18,6 +18,7 @@ var answer=require('./routes/answer')
 var sugPress=require('./routes/sugarPressure');
 var doctor=require("./routes/doctor");
 var assignment=require("./routes/assign");
+var userList=require("./routes/userList");
 
 var expressValidator = require('express-validator');
 
@@ -76,6 +77,7 @@ app.use("/answer",answer);
 app.use("/sugpress",sugPress)
 app.use("/doctor",doctor);
 app.use("/v2/signup",v2signup);
+app.use("/userlist",userList);
 
 // admin routes
 

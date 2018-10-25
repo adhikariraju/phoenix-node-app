@@ -123,3 +123,11 @@ exports.registerUser=(data,cb)=>{
         cb(null,result);
     });
 }
+
+exports.getAllUser=(cb)=>{
+    User.find({})
+    .select('nickname headimgurl')
+    .exec((err,result)=>{
+       cb(err,result)
+    })
+}
