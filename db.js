@@ -6,7 +6,8 @@ var isdev = process.env.NODE_ENV !== 'production';
 
 mongoose.Promise=bluebird;
 mongoose.connect(isdev?config.db_dev:config.db,
-      {useNewUrlParser:true});
+      {  useCreateIndex: true,
+        useNewUrlParser:true});
 
 var db=mongoose.connection;
 
