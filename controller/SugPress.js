@@ -11,7 +11,7 @@ exports.getAllByUserId=(userId,callback)=>{
 
 exports.save=(data,callback)=>{
    var sugpress=new SugPress({
-       userId:data.userId,
+       user:data.user,
        sugar:data.sugar,
        pressure:data.pressure
    });

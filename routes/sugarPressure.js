@@ -5,10 +5,10 @@ var verify = require("../utils/verify")
 
 function validateFields() {
    return (req,res,next)=>{
-     var userId=req.body.userId||"";
+     var user=req.body.user||"";
      var sugar=req.body.sugar||"";   
      var pressure=req.body.pressure||""; 
-       if(userId==""||sugar==""||pressure==""){
+       if(user==""||sugar==""||pressure==""){
           return res.status(400).send({message:"All fields are required",success:false})
        }
        next();
