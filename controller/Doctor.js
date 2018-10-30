@@ -1,4 +1,4 @@
-var Doctor=require("../model/Doctor");
+var Doctor=require("@model/Doctor");
 
 exports.createDoctor=(data,callback)=>{
   var doctor=new Doctor({

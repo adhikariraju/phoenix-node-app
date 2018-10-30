@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var doctorCtrl=require("../controller/Doctor")
+var doctorCtrl=require("@controller/Doctor")
 
 router.get("/:id",(req,res)=>{
  doctorCtrl.getDoctorById(req.body.id,(err,result)=>{

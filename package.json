@@ -19,6 +19,7 @@
     "express-session": "^1.15.6",
     "express-validator": "^5.3.0",
     "jsonwebtoken": "^8.3.0",
+    "module-alias": "^2.1.0",
     "mongodb": "^3.1.1",
     "mongoose": "^5.2.4",
     "morgan": "~1.8.1",
@@ -29,5 +30,14 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.3"
+  },
+  "_moduleAliases":{
+    "@root":".",
+    "@controller":"controller",
+    "@model":"model",
+    "@routes":"routes",
+    "@express-validator":"express-validator",
+    "@utils":"utils",
+    "@config":"config"
   }
 }

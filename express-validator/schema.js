@@ -1,5 +1,5 @@
 const { check } = require('express-validator/check');
-const Question =require("../model/Question");
+const Question =require("@model/Question");
 
 exports.signup = [
     check('encryptedData', 'Encrypted Data is required').exists(),

@@ -1,4 +1,5 @@
-const { mongoose } = require('../db.js');
+const { mongoose } = require('@root/db.js');
+const Mtech=require("@model/Mtech");
 
 const subAnswerSchema=new mongoose.Schema({
   questionId:{type:mongoose.SchemaTypes.ObjectId,required:true},
@@ -7,7 +8,9 @@ const subAnswerSchema=new mongoose.Schema({
 })
 
 const answerSchema = new mongoose.Schema({
-    completedBy:{type:mongoose.SchemaTypes.ObjectId,required:true},
+    user:{type:mongoose.SchemaTypes.ObjectId,required:true},
+    mtechFillup:{type:Boolean, default:false},
+    mtech:{type:mongoose.SchemaTypes.ObjectId,ref:'Mtech'},
     createdAt:{type:Date,default:Date.now()},
     type:{type:String,required:true},
     questionSetId:{type:mongoose.SchemaTypes.ObjectId,required:true},

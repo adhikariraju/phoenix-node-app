@@ -1,6 +1,6 @@
 var express=require("express");
 var router=express.Router();
-var sugpressCtrl=require('../controller/SugPress');
+var sugpressCtrl=require('@controller/SugPress');
 var verify = require("../utils/verify")
 
 function validateFields() {
@@ -15,7 +15,7 @@ function validateFields() {
    } 
 }
 
-router.use(verify.verifyUser);
+// router.use(verify.verifyUser);
 
 router.get('/',(req,res)=>{
    let {userId}=req.decoded||req.query;

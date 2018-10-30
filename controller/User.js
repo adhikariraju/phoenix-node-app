@@ -1,4 +1,4 @@
-var User = require('../model/User')
+var User = require('@model/User')
 
 
 exports.setAssignStatus=(userId,status,callback)=>{

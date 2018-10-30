@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var mtechCtrl=require("@controller/Mtech")
-var verify=require("../../utils/verify");
+var mtechCtrl=require("@controller/mtech/Mtech")
+var verify=require("@utils/verify");
 
 router.post("/login",(req,res)=>{
   mtechCtrl.login(req.body,(err,result)=>{

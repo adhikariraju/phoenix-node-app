@@ -1,4 +1,4 @@
-var SugPress=require('../model/SugPress');
+var SugPress=require('@model/SugPress');
 
 exports.getAllByUserId=(userId,callback)=>{
   SugPress.find({userId:userId},function(err,result){

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var userCtrl = require("../controller/User");
+var userCtrl = require("@controller/User");
 var decrypt = require("../utils/decrypt");
 var verify=require("../utils/verify");
 var schema = require("../express-validator/schema")

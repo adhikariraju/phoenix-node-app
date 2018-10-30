@@ -1,6 +1,6 @@
 var express=require('express')
 var router=express.Router();
-var questCtrl=require("../controller/Question");
+var questCtrl=require("@controller/Question");
 var verify=require("../utils/verify")
 var schema = require("../express-validator/schema")
 var validation = require("../express-validator/validation")  //express-validator common middleware

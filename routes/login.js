@@ -3,8 +3,8 @@ var router = express.Router();
 const axios = require('axios');
 var config = require('../config/config');
 var WechatAPI = require('wechat-api');
-var UserCtrl=require('../controller/User')
-var WeChatCtrl=require('../controller/Wechat')
+var UserCtrl=require('@controller/User')
+var WeChatCtrl=require('@controller/Wechat')
 var verify=require("../utils/verify")
 
 // var api = new WechatAPI(config.APPID, config.APPSECRET);

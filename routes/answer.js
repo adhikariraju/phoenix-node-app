@@ -1,6 +1,6 @@
 var express=require("express")
 var router=express.Router();
-var ansCtrl=require("../controller/Answer");
+var ansCtrl=require("@controller/Answer");
 
 router.post("/",(req,res)=>{
    console.log("answers",req.body.answers);
@@ -11,4 +11,5 @@ router.post("/",(req,res)=>{
        return res.status(200).send({message:"answer post",success:true})
    })   
 })
+
 module.exports=router;

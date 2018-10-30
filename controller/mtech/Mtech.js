@@ -1,5 +1,5 @@
-var Mtech = require("../model/Mtech");
-var QRLog=require("../model/Qrlog");
+var Mtech = require("@model/Mtech");
+var QRLog=require("@model/Qrlog");
 var sha1=require("sha1");
 
 exports.register=(data,cb)=>{

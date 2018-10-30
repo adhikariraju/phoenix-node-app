@@ -18,6 +18,6 @@ const qrlogSchema = new mongoose.Schema({
     "patientRef": { type:mongoose.SchemaTypes.ObjectId,required:true, ref:'User' },
     "deviceInfo": { type:deviceSchema,required:true },
     "createdAt": { type:Date, default:Date.now() },
-    });
+});
 
 module.exports = mongoose.model('QRLog', qrlogSchema);

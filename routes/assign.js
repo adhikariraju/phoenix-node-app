@@ -1,7 +1,7 @@
 var express = require("express")
 var router = express.Router();
-var assignCtrl=require("../controller/Assignment")
-var userCtrl=require("../controller/User");
+var assignCtrl=require("@controller/Assignment")
+var userCtrl=require("@controller/User");
 
 router.post("/",(req,res)=>{
     let userId=req.body.userId;

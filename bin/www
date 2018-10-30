@@ -3,8 +3,9 @@
 /**
  * Module dependencies.
  */
+require("module-alias/register")
 
-var app = require('../app');
+var app = require('@root/app');
 var debug = require('debug')('express:server');
 var http = require('http');
 const { createTerminus } = require('@godaddy/terminus');

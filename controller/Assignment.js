@@ -1,6 +1,6 @@
-var Assignment =require("../model/Assignment");
-var userCtrl=require("../controller/User");
-var User=require("../model/User");
+var Assignment =require("@model/Assignment");
+var userCtrl=require("@controller/User");
+var User=require("@model/User");
 
 exports.assignUserToDoc=(userId,doctorId,callback)=>{
     var assign=new Assignment({

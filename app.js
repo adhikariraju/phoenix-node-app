@@ -8,18 +8,18 @@ var cors=require('cors')
 require('body-parser-xml')(bodyParser);
 
 //routes
-var login=require("./routes/login")
-var message=require("./routes/message")
-var decrypt=require("./routes/decrpt")
-var question=require("./routes/question")
-var signup=require('./routes/signup')
-var v2signup=require('./routes/v2.signup')
-var answer=require('./routes/answer')
-var sugPress=require('./routes/sugarPressure');
-var doctor=require("./routes/doctor");
-var assignment=require("./routes/assign");
-var userList=require("./routes/userList");
-var mtech = require("./routes/mtech")
+var login=require("@routes/login")
+var message=require("@routes/message")
+var question=require("@routes/question")
+var signup=require('@routes/signup')
+var v2signup=require('@routes/v2.signup')
+var answer=require('@routes/answer')
+var sugPress=require('@routes/sugarPressure');
+var doctor=require("@routes/doctor");
+var assignment=require("@routes/assign");
+var userList=require("@routes/userList");
+var mtechAuth = require("@routes/mtech/auth")
+var qrlog=require("@routes/mtech/qrlog")
 
 var expressValidator = require('express-validator');
 
@@ -27,7 +27,7 @@ var expressValidator = require('express-validator');
 var app = express();
 
 //db setting and connection.
-var {mongoose}=require('./db');
+var {mongoose}=require('@root/db');
 //-------- session module
 
 //var session=require("express-session")
@@ -79,7 +79,8 @@ app.use("/sugpress",sugPress)
 app.use("/doctor",doctor);
 app.use("/v2/signup",v2signup);
 app.use("/userlist",userList);
-app.use("/mtech",mtech);
+app.use("/mtech/auth",mtechAuth);
+app.use("/mtech/qrlog",qrlog);
 
 // admin routes
 

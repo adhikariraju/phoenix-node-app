@@ -2,7 +2,7 @@ var express=require('express');
 var router=express.Router();
 var verify=require('../utils/verify')
 var WechatAPI = require('../utils/wechatapi');
-var UserCtrl=require("../controller/User");
+var UserCtrl=require("@controller/User");
 
 
 router.get('/',(req,res)=>{

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var userCtrl=require("../controller/User")
+var userCtrl=require("@controller/User")
 
 router.get("/",(req,res)=>{
    userCtrl.getAllUser((err,result)=>{

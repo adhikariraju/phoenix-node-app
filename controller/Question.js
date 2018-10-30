@@ -1,4 +1,4 @@
-var Question=require("../model/Question");
+var Question=require("@model/Question");
 
 
 exports.getQuestionByType=(type,cb)=>{
