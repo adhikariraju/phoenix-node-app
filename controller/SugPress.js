@@ -25,7 +25,7 @@ exports.save=(data,callback)=>{
 
 exports.getAllWithinDate=(data,callback)=>{
     console.log("data within date",data);
-    SugPress.find({userId:data.userId,createdAt:{$lte:data.toDate,$gte:data.fromDate}},(err,result)=>{
+    SugPress.find({user:data.userId,createdAt:{$lte:data.toDate,$gte:data.fromDate}},(err,result)=>{
         callback(err,result);
     })
 }

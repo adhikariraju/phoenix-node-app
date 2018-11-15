@@ -52,7 +52,7 @@ router.get('/getRecent',(req,res)=>{
     var currentDate=new Date(Date.now());
     currentDate.setDate(currentDate.getDate()-7);
     var fromDate=currentDate.valueOf();
-    var parameter = {userId: userId, fromDate: fromDate, toDate: Date.now()};
+    var parameter = {userId: userId, fromDate: fromDate, toDate:Date.now()};
 
     sugpressCtrl.getAllWithinDate(parameter,(err,result)=>{
         if(err){
